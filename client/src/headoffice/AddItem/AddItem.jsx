@@ -47,23 +47,19 @@ const dropdowntypes = [
   },
 ];
 
-function validate(username,password,cnic) {
+function validate(name,description,price) {
   return {
-    userName: username.length === 0,
-    password: password.length === 0,
-    cnic: cnic.length === 0,
+    name: name.length === 0,
+    description: description.length === 0,
+    price: price.length === 0,
   };
 }
 class TextFields extends React.Component {
 
   state = {
     name: '',
-    username: '',
-    password: '',
-    cnic: '',
-    address:'',
-    mobile:'',
-    email:'',
+    description:'',
+    price:'',
     t:this.props.token,
   }
 
@@ -76,7 +72,7 @@ handleSubmit = (evt) => {
   
 }
 canBeSubmitted() {
-  const errors = validate(this.state.username,this.state.password,this.state.cnic);
+  const errors = validate(this.state.name,this.state.description,this.state.price);
   const isDisabled = Object.keys(errors).some(x => errors[x]);
   return !isDisabled;
 }
@@ -102,39 +98,19 @@ canBeSubmitted() {
   };
 
 
-  changepassword = e => {
+  changeDescription = e => {
     this.setState({
       password: e.target.value
     });
   }
 
-  changecnics = e => {
+  changePrice = e => {
     this.setState({
       cnic: e.target.value
     });
   }
 
-  changephone = e => {
-    this.setState({
-      phone: e.target.value
-    });
-  }
-  changeemail = e => {
-    this.setState({
-      email: e.target.value
-    });
-  }
-  changemobile = e => {
-    this.setState({
-      mobile: e.target.value
-    });
-  }
-
-  changeaddres = e => {
-    this.setState({
-      address: e.target.value
-    })
-  }
+ 
 
   handleClick = () => {
     console.log(this.props.token);
@@ -142,14 +118,9 @@ canBeSubmitted() {
       console.log(this.state)
       var details = {
         'name':this.state.name,
-        'username': this.state.username,
-        'password':this.state.password,
-        'cnic':this.state.cnic,
-        'phone':this.state.phone,
-        'address':this.state.address,
-        'mobile':this.state.mobile,
+        'description': this.state.description,
+        'price':this.state.price,
         'token':this.state.t,
-        'email':this.state.email,
    };
    
    var formBody = [];
@@ -160,7 +131,7 @@ canBeSubmitted() {
    }
    formBody = formBody.join("&");
    
-   fetch('/head/AddEmp', {
+   fetch('/head/AddItem', {
      method: 'POST',
      headers: {
        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -183,23 +154,9 @@ canBeSubmitted() {
    );
       //form saaf kia hai 
     this.setState({
-      name: '',
-      username:'',
-      password:'',
-      cnic:'',
-      type:'',
-      isDisabledshop:true,
-      shopaddress:'',
-      city:'',
-      state:'',
-      zip:'',
-      phone:'',
-      nationality:'',
-      country:'',
-      mobile:'',
-      email:'',
-      address:'',
-      countryState:''
+        name: '',
+        description:'',
+        price:'',
     })
   }
 
@@ -207,26 +164,14 @@ canBeSubmitted() {
   
   render() {
     const { classes } = this.props;
-    const errors = validate(this.state.username,this.state.password,this.state.cnic);
+    const errors = validate(this.state.name,this.state.description,this.state.price);
       const isDisabled = Object.keys(errors).some(x => errors[x]);
 
     return (
       <div>
-        <Typography variant="display2">Add a new Employee</Typography>
+        <Typography variant="display2">Add a new ITEM</Typography>
         <Card className={classes.card}>
       <form className={classes.container} noValidate autoComplete="off"> 
-      <CardContent>
-      <TextField
-          id="username"
-          label="Username"
-          value={this.state.username}
-          placeholder="Enter User Name"
-          className={classes.textField}
-          onChange={e => this.changeuserName(e)}
-          margin="normal"
-          refs='name'
-        />
-        </CardContent>
 
       <CardContent>
       <TextField
@@ -243,55 +188,22 @@ canBeSubmitted() {
 
         <CardContent>
         <TextField
-          id="password"
-          label="Password"
-          value={this.state.password}
-          placeholder="Enter Password"
-          onChange={e => this.changepassword(e)}
+          id="Description"
+          label="Description"
+          value={this.state.description}
+          placeholder="Enter Description"
+          onChange={e => this.changeDescription(e)}
           className={classes.textField}
           margin="normal"
         />
         </CardContent>
         <CardContent>
         <TextField
-          id="cnic"
-          label="CNIC"
-          value={this.state.cnic}
-          placeholder="Enter CNIC"
-          onChange={e => this.changecnics(e)}
-          className={classes.textField}
-          margin="normal"
-        />
-        </CardContent>
-        <CardContent>
-        <TextField
-          id="email"
-          label="Email"
-          value={this.state.email}
-          placeholder="Enter Email"
-          onChange={e => this.changeemail(e)}
-          className={classes.textField}
-          margin="normal"
-        />
-        </CardContent>
-        <CardContent>
-        <TextField
-          id="mobile"
-          label="mobile"
-          value={this.state.mobile}
-          placeholder="Enter Mobile"
-          onChange={e => this.changemobile(e)}
-          className={classes.textField}
-          margin="normal"
-        />
-        </CardContent>
-        <CardContent>
-        <TextField
-          id="address"
-          label="address"
-          value={this.state.address}
-          placeholder="Enter Address"
-          onChange={e => this.changeaddres(e)}
+          id="price"
+          label="Price"
+          value={this.state.price}
+          placeholder="Enter Price"
+          onChange={e => this.changePrice(e)}
           className={classes.textField}
           margin="normal"
         />

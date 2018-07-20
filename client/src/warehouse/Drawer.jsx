@@ -19,9 +19,7 @@ import {
     Router
     }   from 'react-router-dom';
 import FullTable from './FullTable';
-import BatchItems from './BatchItems';
 import Welcome from './Welcome';
-import BatchItemsShow from './BatchShow';
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -110,18 +108,12 @@ class ResponsiveDrawer extends React.Component {
  AddItemHandleClick = () => {
 
     this.setState({
-        OnDisplay:<AddItem token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<FullTable token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("ADd item on click")
   }
 
-  batchitemsHandleClick = () => {
-
-    this.setState({
-        OnDisplay:<BatchItems token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
-    })
-    console.log("ADd item on click")
-  }
+  
 
   FullTableHandleClick = () => {
 
@@ -134,13 +126,6 @@ class ResponsiveDrawer extends React.Component {
 
     this.setState({
         OnDisplay:<ViewItems token={this.state.t}/>
-    })
-    console.log("ADd item on click")
-  }
-  batchitemsshowHandleClick = () => {
-
-    this.setState({
-        OnDisplay:<BatchItemsShow token={this.state.t}/>
     })
     console.log("ADd item on click")
   }
@@ -174,15 +159,11 @@ class ResponsiveDrawer extends React.Component {
         <List>
         <Typography variant="title" color="inherit" >
         <MuiThemeProvider theme={theme2}>
-           <ListItem><Button onClick={this.AddItemHandleClick.bind(this)} >Add Item</Button></ListItem>
+           <ListItem button={true} onClick={this.AddItemHandleClick.bind(this)} >Sale Item</ListItem>
            <Divider />
-            <ListItem><Button onClick={this.FullTableHandleClick.bind(this)}>All Items</Button></ListItem>
+            <ListItem button={true} onClick={this.FullTableHandleClick.bind(this)}>All Items</ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.batchitemsHandleClick.bind(this)} >Batch Items</Button></ListItem>
-            <Divider />
-            <ListItem><Button onClick={this.batchitemsshowHandleClick.bind(this)} >Batch Items Show</Button></ListItem>
-            <Divider />
-            <ListItem><Button onClick={this.props.logoutScreen}>Logout</Button></ListItem>
+            <ListItem button={true} onClick={this.props.logoutScreen}>Logout</ListItem>
             <Divider />
            {/*<ListItem><Button onClick={this.ViewItemsHandleClick.bind(this)}>View Items</Button></ListItem>*/} 
             </MuiThemeProvider>
@@ -205,7 +186,7 @@ class ResponsiveDrawer extends React.Component {
                 <MenuIcon/>
               </IconButton>
               <Typography variant="title" color="inherit" noWrap>
-                Powered By NerdWare
+              Powered By DevelopMeThis
               </Typography>
             </Toolbar>
           </AppBar>

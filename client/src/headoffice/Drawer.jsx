@@ -25,6 +25,8 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
+import AddItem from './AddItem/AddItem';
+import ViewAllItems from './AddItem/ViewAllItems';
 
 
 
@@ -110,9 +112,16 @@ class ResponsiveDrawer extends React.Component {
     this.setState({
         OnDisplay:<AddNewLogin token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
-    console.log("Add item on click");
+    console.log("Add Logib on click");
   }
 
+  AddNewItem = () => {
+
+    this.setState({
+        OnDisplay:<AddItem token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+    })
+    console.log("Add item on click");
+  }
 
   
  ViewAllHandleClick = () => {
@@ -120,8 +129,17 @@ class ResponsiveDrawer extends React.Component {
     this.setState({
         OnDisplay:<ViewAll token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
-    console.log("View All item Click")
+    console.log("View All Employee CLick")
   }
+
+   
+ ViewAllItems = () => {
+
+  this.setState({
+      OnDisplay:<ViewAllItems token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+  })
+  console.log("View All item Click")
+}
 
 
   handleClickDialogOpen = () => {
@@ -152,11 +170,15 @@ class ResponsiveDrawer extends React.Component {
         <List>
         <Typography variant="title" color="inherit" >
         <MuiThemeProvider theme={theme2}>
-           <ListItem><Button onClick={this.AddNewLoginHandleClick.bind(this)} >Add New Login</Button></ListItem>
+           <ListItem button={true} onClick={this.AddNewLoginHandleClick.bind(this)} >Add New Employee</ListItem>
            <Divider />
-            <ListItem><Button onClick={this.ViewAllHandleClick.bind(this)}>View All Employees</Button></ListItem>
+            <ListItem button={true} onClick={this.ViewAllHandleClick.bind(this)}>View All Employees</ListItem>
             <Divider/>
-            <ListItem><Button onClick={this.props.logoutScreen}>Logout</Button></ListItem>
+            <ListItem button={true} onClick={this.AddNewItem.bind(this)}>Add New Item</ListItem>
+            <Divider/>
+            <ListItem button={true} onClick={this.ViewAllItems.bind(this)}>View All Items</ListItem>
+            <Divider/>
+            <ListItem button={true} onClick={this.props.logoutScreen}>Logout</ListItem>
             <Divider />
             </MuiThemeProvider>
             </Typography>
@@ -178,7 +200,7 @@ class ResponsiveDrawer extends React.Component {
                 <MenuIcon/>
               </IconButton>
               <Typography variant="title" color="inherit" noWrap>
-                Powered By NerdWare
+                Powered By DevelopMeThis
               </Typography>
             </Toolbar>
           </AppBar>
