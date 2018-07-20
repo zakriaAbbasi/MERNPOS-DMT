@@ -26,6 +26,7 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
+import Charts from './Chart';
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -130,6 +131,13 @@ class ResponsiveDrawer extends React.Component {
     console.log("ADd item on click")
   }
 
+  StatsHandleClick = () => {
+
+    this.setState({
+        OnDisplay:<Charts/>
+    })
+    console.log("ADd item on click")
+  }
   
   handleClickDialogOpen = () => {
     this.setState({ open: true });
@@ -163,6 +171,8 @@ class ResponsiveDrawer extends React.Component {
            <Divider />
             <ListItem button={true} onClick={this.FullTableHandleClick.bind(this)}>All Items</ListItem>
             <Divider/>
+            <ListItem button={true} onClick={this.StatsHandleClick}>Stats</ListItem>
+            <Divider />
             <ListItem button={true} onClick={this.props.logoutScreen}>Logout</ListItem>
             <Divider />
            {/*<ListItem><Button onClick={this.ViewItemsHandleClick.bind(this)}>View Items</Button></ListItem>*/} 
