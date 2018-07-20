@@ -70,7 +70,8 @@ exports.CreatenewEmp= function(req, res)
 exports.fetchallemps= function(req,res){
     emp_instance.find()
     .then(Emp => {
-        if(Emp==null){ res.json({message:'No Employee Found'})}
+        console.log(Emp);
+        if(Emp[0]==null){ res.json({message:'No Employee Found'})}
         else
        return res.json(Emp);
     }).catch(err => {
@@ -124,14 +125,12 @@ exports.Deleteemp= function(req, res)
 //Function to Create new Article
 exports.CreatenewArticle= function(req, res)
  {
-     var articlemodel = new article_instance({ item_name:req.body.name, item_type:req.body.type,
-        price:parseInt(req.body.price), 
-        size:req.body.size,
-        date_added: req.body.date});
+     var articlemodel = new article_instance({ item_name:req.body.name,description:req.body.desc,
+        retial_price:parseInt(req.body.Rprice), 
+        factory_price:parseInt(req.body.Fprice),});
         //fetch last document and increment article id
         article_instance.find().sort({"_id": -1}).limit(1).exec(function(err,latest){
-        if(latest[0]!=null){ articlemodel.item_id=latest[0].item_id + 1;
-        articlemodel.id2=req.body.newid+(latest[0].item_id+1)}
+        if(latest[0]!=null){ articlemodel.item_id=latest[0].item_id + 1;}
         else{articlemodel.id2=req.body.newid+'001'}
         
         //save new article
@@ -143,7 +142,7 @@ exports.CreatenewArticle= function(req, res)
         // saved!
     });
 });
- }
+}
  //Delete A Article
  exports.DeleteArticle= function(req, res)
  {
@@ -183,7 +182,7 @@ exports.CreatenewArticle= function(req, res)
 //Funtion To Fetch an Article
 
 
-exports.fetchoneArticle= function(req,res){
+exports.fetchoneByid= function(req,res){
     article_instance.findOne(  
         
         // query
@@ -201,3 +200,23 @@ exports.fetchoneArticle= function(req,res){
         }
     );
 };
+
+exports.fetchoneByname= function(req,res){
+    article_instance.findOne(  
+        
+        // query
+        {item_id:req.body.name},
+    
+        
+    
+        // callback function
+        (err, article) => {
+            if (err) return res.status(200).send(err)
+            if(article==null)
+            return res.status(200).json(message='No Article With this id')
+            else
+            return res.status(200).json(article)
+        }
+    );
+};
+
