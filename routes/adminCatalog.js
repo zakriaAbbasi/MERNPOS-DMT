@@ -7,13 +7,11 @@ var varifyToken= require('../TokenVerify');
 router.use(varifyToken);
 /* GET users listing. */
 
+router.post('/addEmp',Controller.CreatenewEmp);
+router.post('/deleteEmp',Controller.Deleteemp);
+router.post('/showEmp',Controller.fetchoneemp);
+router.post('/showAllEmps',Controller.fetchallemps);
 router.post('/addArticle',Controller.CreatenewArticle);
-router.post('/DeleteArticle',Controller.DeleteArticle);
-router.post('/showArticles',Controller.FetchAllArticle);
-router.post('/show1Article',Controller.fetchoneArticle);
-router.post('/Createnewpakg',Controller.CreatePakage);
-//router.post('/showPackages',Controller.ShowPakages);
-//router.post('/show1Package',Controller.Showonepakg);
 
 
 module.exports = router;
