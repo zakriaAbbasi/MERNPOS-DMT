@@ -47,15 +47,11 @@ const styles = theme => ({
 const dropdowntypes = [
   {
     value: 'admin',
-    label: 'Warehouse',
+    label: 'Employee',
   },
   {
     value: 'head',
-    label: 'Head Office',
-  },
-  {
-    value: 'shop',
-    label: 'Shop',
+    label: 'Admin',
   },
 ];
 function validate(userName,Password) {
@@ -133,9 +129,6 @@ class TextFields extends React.Component {
      else if(res.type==='admin'){
       this.props.updateWarehouse(res.token);
      }
-     else if(res.type==='shop'){ //res.type not working properly, if they do, all dashboards will be displayed accoridingly
-      this.props.updateShop(res.token,res.shopID);
-     }
      else{
        this.props.handleOpen();
      }
@@ -183,9 +176,11 @@ class TextFields extends React.Component {
       <div>
            <AppBar className={classes.appBar}>
       <Toolbar>
+      <a href="http://developmethis.com">
         <Typography variant="title" color="inherit" noWrap>
-          Powered By NerdWare
+       Powered By DevelopMeThis
         </Typography>
+        </a>
       </Toolbar>
     </AppBar>
     <Typography variant="display1" color="inherit" align="center" className={classes.typeobar}>
