@@ -5,13 +5,11 @@ var Schema = mongoose.Schema;
 var ArticleSchema = new Schema(
   {
     item_name: {type: String, required: true, max: 100},
-    item_type: {type: String, required: true, max: 100},
-    price: {type: Number},
-    date_added: {type: Date},
+    retail_price: {type: Number},
+    factory_price: {type: Number},
     size: {type: String},
     item_id: {type: Number, default: 1},
-    id2:{type:String,required: true,max:100},
-    sold: {type : Boolean, default:false},
+    description: {type: String, max: 100}
    }
 );
 

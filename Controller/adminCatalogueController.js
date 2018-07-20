@@ -70,7 +70,8 @@ exports.CreatenewEmp= function(req, res)
 exports.fetchallemps= function(req,res){
     emp_instance.find()
     .then(Emp => {
-        if(Emp==null){ res.json({message:'No Employee Found'})}
+        console.log(Emp);
+        if(Emp[0]==null){ res.json({message:'No Employee Found'})}
         else
        return res.json(Emp);
     }).catch(err => {
@@ -183,7 +184,7 @@ exports.CreatenewArticle= function(req, res)
 //Funtion To Fetch an Article
 
 
-exports.fetchoneArticle= function(req,res){
+exports.fetchoneByid= function(req,res){
     article_instance.findOne(  
         
         // query
@@ -200,4 +201,44 @@ exports.fetchoneArticle= function(req,res){
             return res.status(200).json(article)
         }
     );
+};
+
+exports.fetchoneByname= function(req,res){
+    article_instance.findOne(  
+        
+        // query
+        {item_id:req.body.name},
+    
+        
+    
+        // callback function
+        (err, article) => {
+            if (err) return res.status(200).send(err)
+            if(article==null)
+            return res.status(200).json(message='No Article With this id')
+            else
+            return res.status(200).json(article)
+        }
+    );
+};
+
+//function to enter data for articles
+exports.createNewSale1= function (req, res) {
+    var Sall = new sales_instance({
+        item_id: req.body.proid,
+        item_name: req.body.iname,
+        retail_price: req.body.rprice,
+        factory_price: req.body.fprice,
+    });
+    Sall.save(function (err) {
+        if (err)
+            return res.json(err);
+
+        else
+            res.send({
+                msg: "Data Entered Successfully"
+            });
+        console.log("Data entered");
+        // saved!
+    });
 };
