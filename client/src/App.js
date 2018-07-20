@@ -14,39 +14,10 @@ import Dialog, {
 
 class App extends Component {
 
-  /*componentWillMount(){
-
-    if(this.state.IsLoggedInWarehouse===true){
-      this.setState({
-        onDisplay:<WarehouseDrawer/>
-      })
-    }
-    else if(this.state.IsLoggedInHeadoffice===true){
-        this.setState({
-          onDisplay:<div>Head Office</div>
-        })
-    }
-    else if(this.state.IsLoggedinShop===true){
-      this.setState({
-        onDisplay:<div>Shop</div>
-      })
-    }
-    else {
-      this.setState({
-        onDisplay:<Login updateHeadOffice={this.updateHeadOfficeDisplay} updateWarehouse={this.updateWareHouseDisplay} updateShop={this.updateShopDisplay}/>
-      })
-    }
-    }
-    */
 
     constructor(props){
       super(props);
       this.state={
-        /*
-          IsLoggedInWarehouse:false,
-          IsLoggedInHeadoffice:false,
-          IsLoggedinShop:false,
-        */
        open:false,
         onDisplay:<Login updateHeadOffice={this.updateHeadOfficeDisplay} updateWarehouse={this.updateWareHouseDisplay} updateShop={this.updateShopDisplay} handleOpen={this.handleClickOpen}/>
       }

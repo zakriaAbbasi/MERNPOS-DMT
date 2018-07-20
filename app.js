@@ -7,9 +7,10 @@ var logger = require('morgan');
 
 
 var indexRouter = require('./routes/index');
-var headoffice= require('./routes/headofficeCatalog');
 var adminCatalogue= require('./routes/adminCatalog');
-var murti= require('./routes/shopCatalogue');
+var EmpCatalog= require('./routes/EmpCatalog');
+
+
 var app = express();
 var router= express.Router();
 
@@ -28,9 +29,8 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 /////App Routes
 
 app.use('/', indexRouter);
-app.use('/head',headoffice);
 app.use('/admin',adminCatalogue);
-app.use('/shop',murti); 
+app.use('/emp',EmpCatalog); 
 
 
 
