@@ -42,7 +42,7 @@ else
  //          return the information including token as JSON
         return res.json({
             success: true,
-            message: 'logged in!!! Enjoy your token!',
+            message: 'Emp logged in!!! Enjoy your token!',
             token: token,
             type: 'emp'
          });
@@ -53,12 +53,12 @@ else
 exports.FetchAllArticle= function(req,res){
     article_instance.find({item_id:true,item_name: true,retail_price: true, description:true})
     .then(article => {
-        if(article==null){ res.json({message:'No Article Found'})}
+        if(article==null){ res.json({message:'No Item Found'})}
         else
         return res.json(article);
     }).catch(err => {
         return res.status(500).send({
-            message: err.message || "Some error occurred while retrieving all Articles."
+            message: err.message || "Some error occurred while retrieving all Items."
         });
     });
 };
