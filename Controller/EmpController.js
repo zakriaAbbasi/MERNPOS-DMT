@@ -15,7 +15,7 @@ var db = mongoose.connection;
 var emp_instance = require('../models/employee');
 var sales_instance = require('../models/sales');
 var article_instance = require('../models/article');
-
+var Article = require('../models/article');
 
 //Function to Authenticate and Authorize head
 exports.loginandGetToken = function (req, res) {
@@ -66,14 +66,16 @@ exports.makesale= function(req,res){
         {
            article_instance.findOne(     
             // query
-            {item_id:req.body.products[i]},
-            {item_id:true,item_name: true,retail_price: true,},function(err,article){
+            {item_id:req.body.products[i]},function(err,article){
+                
+                console.log(article)
+
                 if (err) {return res.json(`${err}`);}
-                else{
+                else if(article != null){
                  salesmodel.products.push(article);
                  salesmodel.total=salesmodel.total+article.retail_price;
                 }
-                if(salesmodel.products.length === req.body.products.length)
+                if(i == req.body.products.length)
                 {
                         console.log(salesmodel.products.length);
                         salesmodel.save(function(){});
