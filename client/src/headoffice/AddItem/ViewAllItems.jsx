@@ -150,8 +150,9 @@ fetch('/admin/viewallitems', {
   render() {
     const { classes } = this.props;
     return (
+      <div>
+      <Typography variant="display2"> All Items</Typography>
       <Paper className={classes.root}>
-      <Typography variant="display2"> All Employees</Typography>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -182,20 +183,10 @@ fetch('/admin/viewallitems', {
                 );
               })
             }
-            {/* {data.map(n => {
-              return (
-                <TableRow className={classes.row} key={n.id}>
-                  <CustomTableCell>{n.name}</CustomTableCell>
-                  <CustomTableCell numeric>{n.calories}</CustomTableCell>
-                  <CustomTableCell numeric>{n.fat}</CustomTableCell>
-                  <CustomTableCell numeric>{n.carbs}</CustomTableCell>
-                  <CustomTableCell numeric>{n.protein}</CustomTableCell>
-                </TableRow>
-              );
-            })} */}
           </TableBody>
         </Table>
       </Paper>
+      </div>
     );
   }
 }

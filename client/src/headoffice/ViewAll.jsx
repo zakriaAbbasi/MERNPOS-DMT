@@ -150,8 +150,9 @@ fetch('/admin/ShowArticles', {
   render() {
     const { classes } = this.props;
     return (
-      <Paper className={classes.root}>
+      <div>
       <Typography variant="display2"> All Employees</Typography>
+      <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -182,20 +183,10 @@ fetch('/admin/ShowArticles', {
                 );
               })
             }
-            {/* {data.map(n => {
-              return (
-                <TableRow className={classes.row} key={n.id}>
-                  <CustomTableCell>{n.name}</CustomTableCell>
-                  <CustomTableCell numeric>{n.calories}</CustomTableCell>
-                  <CustomTableCell numeric>{n.fat}</CustomTableCell>
-                  <CustomTableCell numeric>{n.carbs}</CustomTableCell>
-                  <CustomTableCell numeric>{n.protein}</CustomTableCell>
-                </TableRow>
-              );
-            })} */}
           </TableBody>
         </Table>
       </Paper>
+      </div>
     );
   }
 }

@@ -42,20 +42,19 @@ const styles = theme => ({
 class CustomizedTable extends React.Component {
   componentDidMount(){
     var details = {
-     'token':this.state.t
- };
- 
+      'token':this.state.t
+      };
 
- var formBody = [];
- for (var property in details) {
-   var encodedKey = encodeURIComponent(property);
-   var encodedValue = encodeURIComponent(details[property]);
-   formBody.push(encodedKey + "=" + encodedValue);
- }
- formBody = formBody.join("&");
+  var formBody = [];
+  for (var property in details) {
+      var encodedKey = encodeURIComponent(property);
+      var encodedValue = encodeURIComponent(details[property]);
+      formBody.push(encodedKey + "=" + encodedValue);
+    }
+    formBody = formBody.join("&");
  
  
- fetch('/admin/ShowArticles', {
+ fetch('/emp/fetchallitems', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -64,11 +63,11 @@ class CustomizedTable extends React.Component {
  })
  .then(res=>res.json())
  .then(res=>{
-
    if(res){
+     console.log(res);
     this.setState({
       data:res
-    })
+    });
    };
  }
  );   
@@ -118,7 +117,7 @@ class CustomizedTable extends React.Component {
   formBody = formBody.join("&");
   
   
-  fetch('/admin/ShowArticles', {
+  fetch('/emp/showallitems', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -172,11 +171,9 @@ class CustomizedTable extends React.Component {
           <TableRow>
           <CustomTableCell>Sr No.</CustomTableCell>
             <CustomTableCell>Name</CustomTableCell>
-            <CustomTableCell >Type</CustomTableCell>
-            <CustomTableCell >Price</CustomTableCell>
-            <CustomTableCell >Date</CustomTableCell>
             <CustomTableCell >ID</CustomTableCell>
-            <CustomTableCell >Delete</CustomTableCell> 
+            <CustomTableCell >Price</CustomTableCell>
+            <CustomTableCell >Description</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -187,15 +184,9 @@ class CustomizedTable extends React.Component {
                   <TableRow className={classes.row} key={type._id} selectable={true}>
                     <CustomTableCell>{index+1}</CustomTableCell>
                     <CustomTableCell>{type.item_name}</CustomTableCell>
-                    <CustomTableCell >{type.item_type}</CustomTableCell>
-                    <CustomTableCell >{type.price}</CustomTableCell>
-                    <CustomTableCell >{type.date_added}</CustomTableCell>
-                    <CustomTableCell >{type.id2}</CustomTableCell>
-                    <CustomTableCell >
-                    <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
-                    <DeleteIcon />
-                    </Button>
-                    </CustomTableCell>
+                    <CustomTableCell >{type.item_id}</CustomTableCell>
+                    <CustomTableCell >{type.retail_price}</CustomTableCell>
+                    <CustomTableCell >{type.description}</CustomTableCell>
                   </TableRow>
             );
           })

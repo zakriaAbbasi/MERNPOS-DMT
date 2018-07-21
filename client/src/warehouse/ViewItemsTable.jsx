@@ -50,7 +50,7 @@ class CustomizedTable extends React.Component {
  formBody = formBody.join("&");
  
  
- fetch('/admin/ShowArticles', {
+ fetch('/admin/fetchallitems', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 

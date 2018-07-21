@@ -12,7 +12,6 @@ import Divider from 'material-ui/Divider';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import List, { ListItem } from 'material-ui/List';
-import AddItem from './AddItem';
 import ViewItems from './ViewItemsTable';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { 
@@ -107,28 +106,25 @@ class ResponsiveDrawer extends React.Component {
   };
 
  AddItemHandleClick = () => {
-
     this.setState({
         OnDisplay:<FullTable token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
-    console.log("ADd item on click")
+    console.log("Sale Component")
   }
 
   
 
   FullTableHandleClick = () => {
-
     this.setState({
         OnDisplay:<FullTable token={this.state.t}/>
-    })
-    console.log("ADd item on click")
+    });
+    console.log('All Items')
   }
   ViewItemsHandleClick = () => {
-
     this.setState({
         OnDisplay:<ViewItems token={this.state.t}/>
     })
-    console.log("ADd item on click")
+    console.log("Sales")
   }
 
   StatsHandleClick = () => {
