@@ -14,6 +14,7 @@ var db = mongoose.connection;
 (db.on('error', console.error.bind(console, 'MongoDB connection error:')));
 
 var emp_instance = require('../models/employee');
+var article_instance = require('../models/article');
 
 //Function To Login
 exports.loginandGetToken = function(req, res)
@@ -126,7 +127,7 @@ exports.Deleteemp= function(req, res)
 exports.CreatenewArticle= function(req, res)
  {
      var articlemodel = new article_instance({ item_name:req.body.name,description:req.body.desc,
-        retial_price:parseInt(req.body.Rprice), 
+        retail_price:parseInt(req.body.Rprice), 
         factory_price:parseInt(req.body.Fprice),});
         //fetch last document and increment article id
         article_instance.find().sort({"_id": -1}).limit(1).exec(function(err,latest){
@@ -205,7 +206,7 @@ exports.fetchoneByname= function(req,res){
     article_instance.findOne(  
         
         // query
-        {item_id:req.body.name},
+        {item_name:req.body.name},
     
         
     
