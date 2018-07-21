@@ -123,7 +123,7 @@ canBeSubmitted() {
       console.log(this.state)
       var details = {
         'name':this.state.name,
-        'description': this.state.description,
+        'desc': this.state.description,
         'Rprice':this.state.rPrice,
         'Fprice':this.state.fPrice,
         'token':this.state.t,
