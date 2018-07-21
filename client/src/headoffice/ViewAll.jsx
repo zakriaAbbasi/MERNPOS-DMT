@@ -48,7 +48,7 @@ class CustomizedTable extends React.Component {
     }
     formBody = formBody.join("&");
     
-    fetch('/head/ShowEmps', {
+    fetch('/admin/showallemps', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -85,7 +85,7 @@ deleteClick = (index) => {
   console.log(this.state.data[index])
   var details = {
     'token':this.state.t,
-    'id':this.state.data[index].item_id,
+    'cnic':this.state.data[index].cnic,
 };
 
 
@@ -98,7 +98,7 @@ for (var property in details) {
 formBody = formBody.join("&");
 
 
-fetch('/admin/DeleteArticle', {
+fetch('/admin/deleteemp', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -156,9 +156,9 @@ fetch('/admin/ShowArticles', {
           <TableHead>
             <TableRow>
               <CustomTableCell>Name</CustomTableCell>
-              <CustomTableCell numeric>Type</CustomTableCell>
               <CustomTableCell numeric>CNIC</CustomTableCell>
               <CustomTableCell numeric>Password</CustomTableCell>
+              <CustomTableCell numeric>Phone</CustomTableCell>
               <CustomTableCell numeric>Delete</CustomTableCell>
             </TableRow>
           </TableHead>
@@ -166,16 +166,13 @@ fetch('/admin/ShowArticles', {
             {/*data replaced with json pacakage from api*/}
             {
                Object.values(this.state.data).map((type,index) => {
-                 console.log(type.Emp_cnic);
-                 console.log(type.Emp_password);
-                 console.log(type.Emp_name);
-                 console.log(type.Emp_type);
+                
                  return (
                   <TableRow className={classes.row} key={type.Emp_cnic}>
-                    <CustomTableCell>{type.Emp_name}</CustomTableCell>
-                    <CustomTableCell numeric> {type.Emp_type} </CustomTableCell>
-                    <CustomTableCell numeric>{type.Emp_cnic}</CustomTableCell>
-                    <CustomTableCell numeric>{type.Emp_password}</CustomTableCell>
+                    <CustomTableCell>{type.name}</CustomTableCell>
+                    <CustomTableCell numeric>{type.cnic}</CustomTableCell>
+                    <CustomTableCell numeric>{type.password}</CustomTableCell>
+                    <CustomTableCell numeric>{type.phone}</CustomTableCell>
                     <CustomTableCell numeric>
                     <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
                     <DeleteIcon />

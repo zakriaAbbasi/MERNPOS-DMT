@@ -59,7 +59,8 @@ class TextFields extends React.Component {
   state = {
     name: '',
     description:'',
-    price:'',
+    rPrice:'',
+    fPrice:'',
     t:this.props.token,
   }
 
@@ -100,16 +101,20 @@ canBeSubmitted() {
 
   changeDescription = e => {
     this.setState({
-      password: e.target.value
+      description: e.target.value
     });
   }
 
-  changePrice = e => {
+  changeRPrice = e => {
     this.setState({
-      cnic: e.target.value
+      rPrice: e.target.value
     });
   }
-
+  changeFPrice = e => {
+    this.setState({
+      fPrice: e.target.value
+    });
+  }
  
 
   handleClick = () => {
@@ -119,7 +124,8 @@ canBeSubmitted() {
       var details = {
         'name':this.state.name,
         'description': this.state.description,
-        'price':this.state.price,
+        'Rprice':this.state.rPrice,
+        'Fprice':this.state.fPrice,
         'token':this.state.t,
    };
    
@@ -131,7 +137,7 @@ canBeSubmitted() {
    }
    formBody = formBody.join("&");
    
-   fetch('/head/AddItem', {
+   fetch('/admin/additem', {
      method: 'POST',
      headers: {
        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -156,7 +162,8 @@ canBeSubmitted() {
     this.setState({
         name: '',
         description:'',
-        price:'',
+        rPrice:'',
+        fPrice:'',
     })
   }
 
@@ -164,7 +171,7 @@ canBeSubmitted() {
   
   render() {
     const { classes } = this.props;
-    const errors = validate(this.state.name,this.state.description,this.state.price);
+    const errors = validate(this.state.name,this.state.description,this.state.rPrice);
       const isDisabled = Object.keys(errors).some(x => errors[x]);
 
     return (
@@ -199,11 +206,22 @@ canBeSubmitted() {
         </CardContent>
         <CardContent>
         <TextField
-          id="price"
-          label="Price"
-          value={this.state.price}
-          placeholder="Enter Price"
-          onChange={e => this.changePrice(e)}
+          id="rprice"
+          label="Retail Price"
+          value={this.state.rPrice}
+          placeholder="Enter Retail Price"
+          onChange={e => this.changeRPrice(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+        </CardContent>
+        <CardContent>
+        <TextField
+          id="fprice"
+          label="Fixed Price"
+          value={this.state.fPrice}
+          placeholder="Enter Fixed Price"
+          onChange={e => this.changeFPrice(e)}
           className={classes.textField}
           margin="normal"
         />

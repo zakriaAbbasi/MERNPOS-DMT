@@ -46,11 +46,11 @@ const styles = theme => ({
 
 const dropdowntypes = [
   {
-    value: 'admin',
+    value: 'emp',
     label: 'Employee',
   },
   {
-    value: 'head',
+    value: 'admin',
     label: 'Admin',
   },
 ];
@@ -68,7 +68,7 @@ class TextFields extends React.Component {
    this.state = {
       userName: '',
       Password: '',
-      type:'admin'
+      type:'emp'
     };
 
   }
@@ -123,11 +123,11 @@ class TextFields extends React.Component {
    if(res){
     console.log(res);
     console.log(res.token);
-     if(res.type==="head"){
-      this.props.updateHeadOffice(res.token);
+     if(res.type==="emp"){
+      this.props.updateWarehouse(res.token);
      }
      else if(res.type==='admin'){
-      this.props.updateWarehouse(res.token);
+      this.props.updateHeadOffice(res.token);
      }
      else{
        this.props.handleOpen();
@@ -140,7 +140,7 @@ class TextFields extends React.Component {
  this.setState({
       userName:'',
       Password:'',
-      type:'admin'
+      type:'emp'
     })
 
   }

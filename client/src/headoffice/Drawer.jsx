@@ -27,7 +27,7 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import AddItem from './AddItem/AddItem';
 import ViewAllItems from './AddItem/ViewAllItems';
-
+import Charts from './Stats/Chart';
 
 
 const customHistory = createBrowserHistory();
@@ -141,6 +141,14 @@ class ResponsiveDrawer extends React.Component {
   console.log("View All item Click")
 }
 
+ViewStats = () => {
+
+  this.setState({
+      OnDisplay:<Charts token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+  })
+  console.log("View All item Click")
+}
+
 
   handleClickDialogOpen = () => {
     this.setState({ open: true });
@@ -177,6 +185,8 @@ class ResponsiveDrawer extends React.Component {
             <ListItem button={true} onClick={this.AddNewItem.bind(this)}>Add New Item</ListItem>
             <Divider/>
             <ListItem button={true} onClick={this.ViewAllItems.bind(this)}>View All Items</ListItem>
+            <Divider/>
+            <ListItem button={true} onClick={this.ViewStats.bind(this)}>View Stats</ListItem>
             <Divider/>
             <ListItem button={true} onClick={this.props.logoutScreen}>Logout</ListItem>
             <Divider />
@@ -244,7 +254,7 @@ class ResponsiveDrawer extends React.Component {
           <DialogTitle id="alert-dialog-title">{"Notification"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              User Added
+              Done, Move On.
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -263,7 +273,7 @@ class ResponsiveDrawer extends React.Component {
           <DialogTitle id="alert-dialog-title">{"Notification"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              User not added, Try again.
+             Not Done due to some error, try again!
             </DialogContentText>
           </DialogContent>
           <DialogActions>
