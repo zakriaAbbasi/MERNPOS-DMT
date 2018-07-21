@@ -8,7 +8,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var adminCatalogue= require('./routes/adminCatalog');
-var EmpCatalog= require('./routes/EmpCatalog');
+//var EmpCatalog= require('./routes/EmpCatalog');
 
 
 var app = express();
@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use('/', indexRouter);
 app.use('/admin',adminCatalogue);
-app.use('/emp',EmpCatalog); 
+//app.use('/emp',EmpCatalog); 
 
 
 

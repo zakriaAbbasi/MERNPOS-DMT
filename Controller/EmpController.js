@@ -44,6 +44,7 @@ else
             success: true,
             message: 'logged in!!! Enjoy your token!',
             token: token,
+            type: 'emp'
          });
 }
     });
