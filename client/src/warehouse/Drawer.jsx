@@ -18,6 +18,7 @@ import {
     Router
     }   from 'react-router-dom';
 import FullTable from './FullTable';
+import Sale from './sale/Sale';
 import Welcome from './Welcome';
 import Dialog, {
   DialogActions,
@@ -107,7 +108,7 @@ class ResponsiveDrawer extends React.Component {
 
  AddItemHandleClick = () => {
     this.setState({
-        OnDisplay:<FullTable token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<Sale token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
     console.log("Sale Component")
   }
