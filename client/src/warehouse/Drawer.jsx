@@ -193,7 +193,7 @@ class ResponsiveDrawer extends React.Component {
                 <MenuIcon/>
               </IconButton>
               <Typography variant="title" color="inherit" noWrap>
-              Powered By DevelopMeThis
+                The filli
               </Typography>
             </Toolbar>
           </AppBar>

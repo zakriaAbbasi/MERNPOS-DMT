@@ -176,11 +176,9 @@ class TextFields extends React.Component {
       <div>
            <AppBar className={classes.appBar}>
       <Toolbar>
-      <a href="http://developmethis.com">
         <Typography variant="title" color="inherit" noWrap>
-       Powered By DevelopMeThis
+          The filli
         </Typography>
-        </a>
       </Toolbar>
     </AppBar>
     <Typography variant="display1" color="inherit" align="center" className={classes.typeobar}>

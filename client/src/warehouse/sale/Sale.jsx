@@ -186,7 +186,7 @@ class Sale extends React.Component {
                       </TableBody>
                     </Table>
                 </Paper>
-                <Button  variant="raised" aria-label="Add" className={classes.button}>
+                <Button  variant="raised" aria-label="Add" onClick className={classes.button}>
                    CheckOut
                 </Button>
               </Grid>
