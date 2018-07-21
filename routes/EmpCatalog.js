@@ -9,7 +9,7 @@ router.use(varifyToken);
 /* GET users listing. */
 
 router.post('/sale',empController.makesale);
-router.post('/fetchAllItems',empController.FetchAllArticle);
-router.post('/showSales',empController.Showsales);
+router.post('/fetchallitems',empController.FetchAllArticle);
+router.post('/showsales',empController.Showsales);
 
 module.exports = router;

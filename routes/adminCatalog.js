@@ -7,10 +7,10 @@ var varifyToken= require('../TokenVerify');
 router.use(varifyToken);
 /* GET users listing. */
 
-router.post('/addEmp',Controller.CreatenewEmp);
-router.post('/deleteEmp',Controller.Deleteemp);
-router.post('/showEmp',Controller.fetchoneemp);
-router.post('/showAllEmps',Controller.fetchallemps);
+router.post('/addemp',Controller.CreatenewEmp);
+router.post('/deleteemp',Controller.Deleteemp);
+router.post('/showemp',Controller.fetchoneemp);
+router.post('/showallemps',Controller.fetchallemps);
 router.post('/additem',Controller.CreatenewArticle);
 router.post('/deleteitem',Controller.DeleteArticle);
 router.post('/viewallitems',Controller.FetchAllArticle);
