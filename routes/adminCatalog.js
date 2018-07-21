@@ -12,8 +12,10 @@ router.post('/deleteEmp',Controller.Deleteemp);
 router.post('/showEmp',Controller.fetchoneemp);
 router.post('/showAllEmps',Controller.fetchallemps);
 router.post('/additem',Controller.CreatenewArticle);
-router.post('/deletearticle',Controller.DeleteArticle);
-router.post('/fetchname',Controller.fetchoneByname);
-router.post('/fetchid',Controller.fetchoneByid);
+router.post('/deleteitem',Controller.DeleteArticle);
+router.post('/viewallitems',Controller.FetchAllArticle);
+router.post('/fetchitembyname',Controller.fetchoneByname);
+router.post('/fetchitembyid',Controller.fetchoneByid);
 
 module.exports = router;
+
