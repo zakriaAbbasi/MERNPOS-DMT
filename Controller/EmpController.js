@@ -75,7 +75,7 @@ exports.makesale= function(req,res){
             // query
             {item_id:req.body.products[i]},
             {item_id:true,item_name: true,retail_price: true,},function(err,article){
-                if (err) return res.json(err);
+                if (err) {return res.json(err);}
                 else{
                  salesmodel.products.push(article);
                  salesmodel.total=salesmodel.total+article.retail_price;

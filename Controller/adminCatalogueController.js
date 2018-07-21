@@ -208,8 +208,6 @@ exports.fetchoneByname= function(req,res){
         // query
         {item_name:req.body.name},
     
-        
-    
         // callback function
         (err, article) => {
             if (err) return res.status(200).send(err)
