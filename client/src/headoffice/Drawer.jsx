@@ -13,6 +13,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import List, { ListItem } from 'material-ui/List';
 import AddNewLogin from './AddLogin';
+import ViewSales from './Sales/Sales';
 import ViewAll from './ViewAll';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { 
@@ -141,6 +142,14 @@ class ResponsiveDrawer extends React.Component {
   console.log("View All item Click")
 }
 
+ViewSales = () => {
+
+  this.setState({
+      OnDisplay:<ViewSales token={this.state.t}/>
+  })
+  console.log("View All item Click")
+}
+
 ViewStats = () => {
 
   this.setState({
@@ -185,6 +194,8 @@ ViewStats = () => {
             <ListItem button={true} onClick={this.AddNewItem.bind(this)}>Add New Item</ListItem>
             <Divider/>
             <ListItem button={true} onClick={this.ViewAllItems.bind(this)}>View All Items</ListItem>
+            <Divider/>
+            <ListItem button={true} onClick={this.ViewSales.bind(this)}>View Sales</ListItem>
             <Divider/>
             <ListItem button={true} onClick={this.ViewStats.bind(this)}>View Stats</ListItem>
             <Divider/>
