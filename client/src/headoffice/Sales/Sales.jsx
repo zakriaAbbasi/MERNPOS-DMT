@@ -55,6 +55,7 @@ class ViewSales extends React.Component {
     })
     .then(res=>res.json())
     .then(res=>{
+      console.log(res)
       console.log("we are in this function");
       console.log(this.state.t);
       if(res){
@@ -89,9 +90,10 @@ class ViewSales extends React.Component {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <CustomTableCell>Sold By</CustomTableCell>
+              <CustomTableCell >Sold By</CustomTableCell>
               <CustomTableCell numeric>On Date</CustomTableCell>
               <CustomTableCell numeric>Total Bill</CustomTableCell>
+              <CustomTableCell numeric >Item Name</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -99,19 +101,17 @@ class ViewSales extends React.Component {
                Object.values(this.state.data).map((type,index) => {
                  return (
                    <div>
-                    <TableRow key={type.Emp_cnic}>
-                      <CustomTableCell>{type.Emp_Cnic}</CustomTableCell>
-                      <CustomTableCell numeric> {type.date_sale} </CustomTableCell>
+                    <TableRow className={classes.row} key={index}>
+                      <CustomTableCell >{type.Emp_Cnic}</CustomTableCell>
+                      <CustomTableCell numeric > {type.date_sale} </CustomTableCell>
                       <CustomTableCell numeric>{type.total}</CustomTableCell>
-                    </TableRow>
-                    <TableRow key={type.Emp_Cnic}>
+                      <CustomTableCell numeric>
                         {
                           type.products.map((item)=>{
-                            
-                            return(<CustomTableCell>{item.item_name}</CustomTableCell>)
-                          
+                            return(item.item_name)+","
                           })
                           }
+                        </CustomTableCell>
                     </TableRow>
                   </div>
                 );
