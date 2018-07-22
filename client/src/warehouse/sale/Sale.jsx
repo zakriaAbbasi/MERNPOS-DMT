@@ -100,7 +100,37 @@ class Sale extends React.Component {
     this.state.cartItems.map((item)=>{
       itemIdArray.push(item.item_id);
     });
-    
+    var date = new Date();
+
+    var details = {
+      'token':this.state.t,
+      'sale':date,
+      'products':itemIdArray,
+      'cnic':this.props.cnic
+    };
+  
+ 
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  formBody = formBody.join("&");
+  
+  
+      fetch('/emp/sale', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+        },
+        body: formBody
+      })
+      .then(res=>res.json())
+      .then(res=>{    
+            console.log(res);
+      }); 
+
   }
   
   

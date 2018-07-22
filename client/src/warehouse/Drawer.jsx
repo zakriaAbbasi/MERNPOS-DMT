@@ -109,8 +109,7 @@ class ResponsiveDrawer extends React.Component {
     this.setState({
         OnDisplay:<Sale cnic={this.props.cnic} token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
-    console.log("Sale Component");
-    console.log(this.props.cnic);
+    console.log("Sale Component")
   }
 
   
