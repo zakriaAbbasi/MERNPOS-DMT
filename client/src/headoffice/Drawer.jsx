@@ -153,7 +153,7 @@ ViewSales = () => {
 ViewStats = () => {
 
   this.setState({
-      OnDisplay:<Charts token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+      OnDisplay:<Charts token={this.state.t} />
   })
   console.log("View All item Click")
 }
