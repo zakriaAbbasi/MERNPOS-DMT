@@ -83,8 +83,6 @@ class Sale extends React.Component {
 }
 
   deleteClick = (index) => {
-          console.log({index})
-          console.log(this.state.data[index])
           var temp = this.state.cartItems;
           temp.push(this.state.data[index]);
           this.setState({
@@ -131,6 +129,11 @@ class Sale extends React.Component {
             console.log(res);
       }); 
 
+      // reseting Bill portion
+      this.setState({
+        cartItems:[],
+        bill:0
+      });
   }
   
   
