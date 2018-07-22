@@ -94,9 +94,17 @@ class Sale extends React.Component {
   }
 
 
-
+//CheckOut and call API
+  checkOut= () =>{
+    var itemIdArray=[];
+    this.state.cartItems.map((item)=>{
+      itemIdArray.push(item.item_id);
+    });
+    
+  }
+  
+  
   //recalculation of Bill
-
   reCalculateBill = () =>{
     var billTemp = 0;
     this.state.cartItems.map((item)=>{
@@ -186,7 +194,7 @@ class Sale extends React.Component {
                       </TableBody>
                     </Table>
                 </Paper>
-                <Button  variant="raised" aria-label="Add" onClick className={classes.button}>
+                <Button  variant="raised" aria-label="Add" onClick={()=>{this.checkOut()}} className={classes.button}>
                    CheckOut
                 </Button>
               </Grid>

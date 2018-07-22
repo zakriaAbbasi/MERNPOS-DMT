@@ -36,12 +36,11 @@ class App extends Component {
     };
 
   
-  updateWareHouseDisplay = (token) => {
-    console.log(token);
+  updateWareHouseDisplay = (token, cnic) => {
     //now send token to the required component
     this.setState({
       IsLoggedInWarehouse:true,
-      onDisplay:<WarehouseDrawer token={token} logoutScreen={this.logoutFunction}/>
+      onDisplay:<WarehouseDrawer token={token} cnic={cnic} logoutScreen={this.logoutFunction}/>
     })
   }
 

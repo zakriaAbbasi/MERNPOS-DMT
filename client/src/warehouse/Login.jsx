@@ -94,12 +94,13 @@ class TextFields extends React.Component {
   };
 
   handleClick = () => {
+    var temp = this.state.userName; 
     console.log(this.state)
     var details = {
      'name': this.state.userName,
      'password': this.state.Password,
      'type':this.state.type
- };
+    };
  
 
  var formBody = [];
@@ -121,10 +122,8 @@ class TextFields extends React.Component {
  .then(res=>{
    console.log("we are in this function");
    if(res){
-    console.log(res);
-    console.log(res.token);
      if(res.type==="emp"){
-      this.props.updateWarehouse(res.token);
+      this.props.updateWarehouse(res.token, temp);
      }
      else if(res.type==='admin'){
       this.props.updateHeadOffice(res.token);
