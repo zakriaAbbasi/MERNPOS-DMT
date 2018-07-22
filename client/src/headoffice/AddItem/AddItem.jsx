@@ -218,9 +218,9 @@ canBeSubmitted() {
         <CardContent>
         <TextField
           id="fprice"
-          label="Fixed Price"
+          label="Factory Price"
           value={this.state.fPrice}
-          placeholder="Enter Fixed Price"
+          placeholder="Enter Factory Price"
           onChange={e => this.changeFPrice(e)}
           className={classes.textField}
           margin="normal"
