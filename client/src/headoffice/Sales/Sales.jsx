@@ -10,7 +10,7 @@ const CustomTableCell = withStyles(theme => ({
     backgroundColor: '#3F51B5',
     color: theme.palette.common.white,
   },
-  body: {
+  body: { 
     fontSize: 14,
   },
 }))(TableCell);
@@ -32,7 +32,7 @@ const styles = theme => ({
 });
 
 
-class Sales extends React.Component {
+class ViewSales extends React.Component {
 
   componentDidMount(){
     var details = {
@@ -58,57 +58,62 @@ class Sales extends React.Component {
       console.log("we are in this function");
       console.log(this.state.t);
       if(res){
-       console.log(res);
        this.setState({
          data:res
-       })
-        console.log("After function",res);
+       });
       };
     }
     );
 
   };
 
+    
+  
+
   constructor(props){
-    super(props)
-    this.state={
-      data:{},
-      t:this.props.token,
-    }
-};
+      super(props)
+      this.state={
+        data:{},
+        t:this.props.token,
+      }
+
+    };
 
 
   render() {
     const { classes } = this.props;
     return (
       <div>
-      <Typography variant="display2"> All Items</Typography>
+      <Typography variant="display2"> Sales</Typography>
       <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <CustomTableCell>Item Name</CustomTableCell>
-              <CustomTableCell numeric>Item Id</CustomTableCell>
-              <CustomTableCell numeric>Factory Price</CustomTableCell>
-              <CustomTableCell numeric>Retail Price</CustomTableCell>
-              <CustomTableCell numeric>Sold By</CustomTableCell>
+              <CustomTableCell>Sold By</CustomTableCell>
               <CustomTableCell numeric>On Date</CustomTableCell>
+              <CustomTableCell numeric>Total Bill</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {/*data replaced with json pacakage from api*/}
             {
                Object.values(this.state.data).map((type,index) => {
-                
                  return (
-                  <TableRow className={classes.row} key={type.Emp_cnic}>
-                    <CustomTableCell>{type.item_name}</CustomTableCell>
-                    <CustomTableCell numeric> {type.item_id} </CustomTableCell>
-                    <CustomTableCell numeric>{type.factory_price}</CustomTableCell>
-                    <CustomTableCell numeric>{type.retail_price}</CustomTableCell>
-                    <CustomTableCell numeric>{type.cnic}</CustomTableCell>
-                    <CustomTableCell numeric>{type.sale_date}</CustomTableCell>
-                  </TableRow>
+                   <div>
+                    <TableRow key={type.Emp_cnic}>
+                      <CustomTableCell>{type.Emp_Cnic}</CustomTableCell>
+                      <CustomTableCell numeric> {type.date_sale} </CustomTableCell>
+                      <CustomTableCell numeric>{type.total}</CustomTableCell>
+                    </TableRow>
+                    <TableRow key={type.Emp_Cnic}>
+                        {
+                          type.products.map((item)=>{
+                            
+                            return(<CustomTableCell>{item.item_name}</CustomTableCell>)
+                          
+                          })
+                          }
+                    </TableRow>
+                  </div>
                 );
               })
             }
@@ -121,8 +126,8 @@ class Sales extends React.Component {
 }
 
 
-Sales.propTypes = {
+ViewSales.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Sales);
+export default withStyles(styles)(ViewSales);
