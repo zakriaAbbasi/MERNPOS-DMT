@@ -7,6 +7,8 @@ import Button from 'material-ui/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Grid from 'material-ui/Grid';
 import Cart from '@material-ui/icons/AddShoppingCart';
+import TextField from 'material-ui/TextField';
+
 const CustomTableCell = withStyles(theme => ({
   head: {
     backgroundColor: '#3F51B5',
@@ -154,6 +156,18 @@ class Sale extends React.Component {
       buttonisDisabled:false,
     });
   }
+  changeDiscount = e => {
+    this.setState({
+      discount:e.target.value,
+    })
+  }
+  setDiscount = () => {
+    let temp = parseInt(this.state.discount,10);
+    temp=((temp/100)*this.state.bill)
+    this.setState({
+      bill:this.state.bill-temp
+    })
+  }
 
   constructor(props){
     super(props);
@@ -163,7 +177,8 @@ class Sale extends React.Component {
       data:{},
       id:'',
       cartItems:[],
-      bill:0
+      bill:0,
+      discount:0
     }
 
    this.deleteClick =  this.deleteClick.bind(this);
@@ -233,6 +248,16 @@ class Sale extends React.Component {
               </Grid>
             </Grid>
             <h2 className="text-center"> Total Bill = {this.state.bill}</h2>
+            <TextField
+             id="discount"
+              label="discount"
+              value={this.state.discount}
+              placeholder="Enter Discount Percentage"
+               onChange={e => this.changeDiscount(e)}
+               className={classes.textField}
+               margin="normal"
+              />
+              <Button variant='raised' aria-label="Done" onClick={this.setDiscount} className={classes.button}>Yes</Button>
           </div>
         );
       }

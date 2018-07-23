@@ -29,7 +29,7 @@ import Dialog, {
 import AddItem from './AddItem/AddItem';
 import ViewAllItems from './AddItem/ViewAllItems';
 import Charts from './Stats/Chart';
-
+import CheckChart from './CheckSummary/CheckChart'
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -158,6 +158,14 @@ ViewStats = () => {
   console.log("View All item Click")
 }
 
+CheckSummaryChart = () => {
+
+  this.setState({
+      OnDisplay:<CheckChart token={this.state.t} />
+  })
+  console.log("View All item Click")
+}
+
 
   handleClickDialogOpen = () => {
     this.setState({ open: true });
@@ -198,6 +206,8 @@ ViewStats = () => {
             <ListItem button={true} onClick={this.ViewSales.bind(this)}>View Sales</ListItem>
             <Divider/>
             <ListItem button={true} onClick={this.ViewStats.bind(this)}>View Stats</ListItem>
+            <Divider/>
+            <ListItem button={true} onClick={this.CheckSummaryChart.bind(this)}>Custom Check Sales</ListItem>
             <Divider/>
             <ListItem button={true} onClick={this.props.logoutScreen}>Logout</ListItem>
             <Divider />
