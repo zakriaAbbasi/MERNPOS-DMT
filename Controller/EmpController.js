@@ -58,6 +58,7 @@ exports.FetchAllArticle= function(req,res){
 
 //Function To Make New Sale
 exports.makesale= function(req,res){
+    req.body.sale = (req.body.sale).substr(0, 10);
     req.body.products= req.body.products.split(',').map(function(i){
         return parseInt(i);})
         var salesmodel= new sales_instance({total:0,date_sale:req.body.sale,Emp_Cnic:req.body.cnic});  
@@ -71,10 +72,12 @@ exports.makesale= function(req,res){
                 console.log(article)
 
                 if (err) {return res.json(`${err}`);}
+                ///check if article isnt null///
                 else if(article != null){
                  salesmodel.products.push(article);
                  salesmodel.total=salesmodel.total+article.retail_price;
                 }
+                //////wrong if condition, this works////
                 if(i == req.body.products.length)
                 {
                         console.log(salesmodel.products.length);
@@ -90,6 +93,8 @@ exports.makesale= function(req,res){
 exports.Showsales = function (req, res) {
             sales_instance.find()
                 .then(sal => {
+                    console.log('hello')
+                    console.log(sal[0].products);
                     if (sal.length == 0) {
                         res.json({
                             msg: "No data available to show"
@@ -102,4 +107,34 @@ exports.Showsales = function (req, res) {
 
                     });
                 });
+};
+exports.displaySales = function(req,res){
+            
+            fromdate = parseInt(((req.body.fromdate).substr(0, 10)).split("-"));
+            todate = parseInt(((req.body.todate).substr(0, 10)).split("-"));
+            //year-month-day
+            sales_instance.find()
+                .then(sal=>{
+                    if (sal.length == 0) {
+                        res.json({
+                            msg: "No data available to show"
+                    });
+                    }
+                    else{
+                        newobject = 0;
+                        for(var i = 0; i < sal.length; i++){
+                            date = parseInt((sal[i]).split("-"));
+                            if(fromdate[0] >= date[0] && todate[0] <= date[0])
+                                if(fromdate[1] >= date[1] && todate[1] <=date[1])
+                                    if(fromdate[2] >=date[2] && todate[2] <=date[2])
+                                        newobject+= (sal[i].products.retail_price - sal[i].products.factory_price);
+                                        //retail - factory
+                        }
+                        res.json(newobject);
+                    }
+                }).catch(err =>{
+                    return res.status(500).send({
+                                message: err.message || "Some error occurred while retrieving all Sales."
+                });
+            });
 };
