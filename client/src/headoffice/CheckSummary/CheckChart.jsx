@@ -159,8 +159,9 @@ class DatePickers extends React.Component {
                     shrink: true,
                     }}
                 />
+                 <Button variant="raised" color="primary" onClick={this.checkData}>Check</Button>
                 </form>
-                <Button variant="raised" color="primary" onClick={this.checkData}>Check</Button>
+               
             <ReactFC {...chartConfigs}/>
             </div>
         )
