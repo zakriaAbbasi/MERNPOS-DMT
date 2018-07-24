@@ -17,6 +17,6 @@ router.post('/viewallitems',Controller.FetchAllArticle);
 router.post('/fetchitembyname',Controller.fetchoneByname);
 router.post('/fetchitembyid',Controller.fetchoneByid);
 router.post('/fetchsales',Controller.Showsales);
-
+router.post('/showstats',Controller.displaySales);
 module.exports = router;
 
