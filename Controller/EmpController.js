@@ -108,7 +108,7 @@ exports.makesale = function (req, res) {
 
 //function to fetch sales
 exports.Showsales = function (req, res) {
-    sales_instance.find()
+    sales_instance.find({Emp_Cnic: req.body.cnic})
         .then(sal => {
             console.log('hello')
             console.log(sal[0].products);
