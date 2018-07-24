@@ -42,9 +42,8 @@ else
  //          return the information including token as JSON
         return res.json({
             success: true,
-            message: 'Emp logged in!!! Enjoy your token!',
+            message: 'logged in!!! Enjoy your token!',
             token: token,
-            type: 'emp'
          });
 }
     });
@@ -53,12 +52,12 @@ else
 exports.FetchAllArticle= function(req,res){
     article_instance.find({item_id:true,item_name: true,retail_price: true, description:true})
     .then(article => {
-        if(article==null){ res.json({message:'No Item Found'})}
+        if(article==null){ res.json({message:'No Article Found'})}
         else
         return res.json(article);
     }).catch(err => {
         return res.status(500).send({
-            message: err.message || "Some error occurred while retrieving all Items."
+            message: err.message || "Some error occurred while retrieving all Articles."
         });
     });
 };
@@ -75,7 +74,7 @@ exports.makesale= function(req,res){
             // query
             {item_id:req.body.products[i]},
             {item_id:true,item_name: true,retail_price: true,},function(err,article){
-                if (err) {return res.json(err);}
+                if (err) return res.json(err);
                 else{
                  salesmodel.products.push(article);
                  salesmodel.total=salesmodel.total+article.retail_price;
@@ -89,9 +88,8 @@ exports.makesale= function(req,res){
         }
        
      res.json('Done');   
-    }
-    
-    //function to fetch sales
+};
+//function to fetch sales
 exports.Showsales = function (req, res) {
             sales_instance.find()
                 .then(sal => {

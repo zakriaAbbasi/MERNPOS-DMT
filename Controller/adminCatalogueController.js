@@ -21,6 +21,8 @@ exports.loginandGetToken = function(req, res)
 {
 var nam= req.body.name;
 var pass= req.body.password;
+console.log(req.body);
+
 if(nam != 'dmt')
 {
     return res.send({msg:'invalid Username'});
