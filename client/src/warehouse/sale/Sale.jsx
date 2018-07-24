@@ -46,6 +46,10 @@ const styles = theme => ({
       backgroundColor: theme.palette.background.default,
     },
   },
+  button: {
+    maxWidth:'2px',
+
+  }
 });
 
 
@@ -65,7 +69,7 @@ class Sale extends React.Component {
  formBody = formBody.join("&");
  
  
- fetch('/emp/fetchallitems', {
+ fetch('/emp/FetchItems', {
    method: 'POST',
    headers: {
      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -168,6 +172,56 @@ class Sale extends React.Component {
       bill:this.state.bill-temp
     })
   }
+  changeItemName = e => {
+    this.setState({
+      itemName:e.target.value,
+    })
+  }
+
+  findItem = () => {
+    let temp = []
+    Object.values(this.state.data).map((type,index)=>{
+      if (type.item_name.toLocaleLowerCase().indexOf(this.state.itemName.toLocaleLowerCase())>=0){
+       temp.push(type);
+      }
+    })
+    this.setState({
+      data:temp
+    })
+  }
+  cancelSearch = () => {
+    var details = {
+      'token':this.state.t
+  };
+  
+ 
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  formBody = formBody.join("&");
+  
+  
+  fetch('/emp/FetchItems', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+    },
+    body: formBody
+  })
+  .then(res=>res.json())
+  .then(res=>{
+ 
+    if(res){
+     this.setState({
+       data:res
+     })
+    };
+  }
+  );   
+  }
 
   constructor(props){
     super(props);
@@ -178,7 +232,8 @@ class Sale extends React.Component {
       id:'',
       cartItems:[],
       bill:0,
-      discount:0
+      discount:0,
+      itemName:''
     }
 
    this.deleteClick =  this.deleteClick.bind(this);
@@ -194,6 +249,17 @@ class Sale extends React.Component {
                   Available Items
               </h1>
               <Paper className={classes.paper || classes.paperHeight} >
+              <TextField
+                    id="itemname"
+                    label="Find Item"
+                    value={this.state.itemName}
+                    placeholder="Find Item"
+                    onChange={e => this.changeItemName(e)}
+                    className={classes.textField}
+                    margin="normal"
+                />
+                <Button  color="primary" onClick={this.findItem}  className={classes.button}>Find</Button>
+                <Button  color="primary" onClick={this.cancelSearch}  className={classes.button}>All Items</Button>
                   <Table className={classes.table}>
                     <TableHead className={classes.tablehead}>
                       <TableRow>
@@ -211,7 +277,7 @@ class Sale extends React.Component {
                                 <CustomTableCell >{type.retail_price}</CustomTableCell>
                                 <CustomTableCell >{type.item_id}</CustomTableCell>
                                 <CustomTableCell >
-                                <Button  aria-label="Add" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
+                                <Button  aria-label="Add" onClick={()=>{this.deleteClick(index)}} >
                                 <Cart/>
                                 </Button>
                                 </CustomTableCell>
@@ -242,7 +308,7 @@ class Sale extends React.Component {
                       </TableBody>
                     </Table>
                 </Paper>
-                <Button  variant="raised" aria-label="Add" onClick={()=>{this.checkOut()}} className={classes.button}>
+                <Button  variant="raised" aria-label="Add" onClick={()=>{this.checkOut()}} >
                    CheckOut
                 </Button>
               </Grid>
@@ -257,7 +323,7 @@ class Sale extends React.Component {
                className={classes.textField}
                margin="normal"
               />
-              <Button variant='raised' aria-label="Done" onClick={this.setDiscount} className={classes.button}>Yes</Button>
+              <Button variant='raised' aria-label="Done" onClick={this.setDiscount}>Yes</Button>
           </div>
         );
       }
