@@ -48,7 +48,7 @@ class CustomizedTable extends React.Component {
     }
     formBody = formBody.join("&");
     
-    fetch('/head/ShowEmps', {
+    fetch('/admin/viewallitems', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -98,7 +98,7 @@ for (var property in details) {
 formBody = formBody.join("&");
 
 
-fetch('/admin/DeleteArticle', {
+fetch('/admin/deleteitem', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -124,7 +124,7 @@ for (var property in details) {
 formBody = formBody.join("&");
 
 
-fetch('/admin/ShowArticles', {
+fetch('/admin/viewallitems', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -150,15 +150,16 @@ fetch('/admin/ShowArticles', {
   render() {
     const { classes } = this.props;
     return (
+      <div>
+      <Typography variant="display2"> All Items</Typography>
       <Paper className={classes.root}>
-      <Typography variant="display2"> All Employees</Typography>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <CustomTableCell>Name</CustomTableCell>
-              <CustomTableCell numeric>Type</CustomTableCell>
-              <CustomTableCell numeric>CNIC</CustomTableCell>
-              <CustomTableCell numeric>Password</CustomTableCell>
+              <CustomTableCell>Item Name</CustomTableCell>
+              <CustomTableCell numeric>Item Id</CustomTableCell>
+              <CustomTableCell numeric>Factory Price</CustomTableCell>
+              <CustomTableCell numeric>Retail Price</CustomTableCell>
               <CustomTableCell numeric>Delete</CustomTableCell>
             </TableRow>
           </TableHead>
@@ -166,16 +167,13 @@ fetch('/admin/ShowArticles', {
             {/*data replaced with json pacakage from api*/}
             {
                Object.values(this.state.data).map((type,index) => {
-                 console.log(type.Emp_cnic);
-                 console.log(type.Emp_password);
-                 console.log(type.Emp_name);
-                 console.log(type.Emp_type);
+                
                  return (
                   <TableRow className={classes.row} key={type.Emp_cnic}>
-                    <CustomTableCell>{type.Emp_name}</CustomTableCell>
-                    <CustomTableCell numeric> {type.Emp_type} </CustomTableCell>
-                    <CustomTableCell numeric>{type.Emp_cnic}</CustomTableCell>
-                    <CustomTableCell numeric>{type.Emp_password}</CustomTableCell>
+                    <CustomTableCell>{type.item_name}</CustomTableCell>
+                    <CustomTableCell numeric> {type.item_id} </CustomTableCell>
+                    <CustomTableCell numeric>{type.factory_price}</CustomTableCell>
+                    <CustomTableCell numeric>{type.retail_price}</CustomTableCell>
                     <CustomTableCell numeric>
                     <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
                     <DeleteIcon />
@@ -185,20 +183,10 @@ fetch('/admin/ShowArticles', {
                 );
               })
             }
-            {/* {data.map(n => {
-              return (
-                <TableRow className={classes.row} key={n.id}>
-                  <CustomTableCell>{n.name}</CustomTableCell>
-                  <CustomTableCell numeric>{n.calories}</CustomTableCell>
-                  <CustomTableCell numeric>{n.fat}</CustomTableCell>
-                  <CustomTableCell numeric>{n.carbs}</CustomTableCell>
-                  <CustomTableCell numeric>{n.protein}</CustomTableCell>
-                </TableRow>
-              );
-            })} */}
           </TableBody>
         </Table>
       </Paper>
+      </div>
     );
   }
 }

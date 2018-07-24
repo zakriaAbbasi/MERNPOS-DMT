@@ -3,11 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node ./bin/www"
   },
   "dependencies": {
+<<<<<<< HEAD
     "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.3",
+=======
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+>>>>>>> 4114bcd5e85e5756592c89e66951b8d867a1aeae
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",

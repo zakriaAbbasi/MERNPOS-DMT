@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import ShopDrawer from './shop/Drawer';
 import WarehouseDrawer from './warehouse/Drawer';
 import HeadOfficeDrawer from './headoffice/Drawer';
 import Login  from './warehouse/Login';
@@ -22,7 +21,6 @@ class App extends Component {
         onDisplay:<Login updateHeadOffice={this.updateHeadOfficeDisplay} updateWarehouse={this.updateWareHouseDisplay} updateShop={this.updateShopDisplay} handleOpen={this.handleClickOpen}/>
       }
       this.updateWareHouseDisplay.bind(this);
-      this.updateShopDisplay.bind(this);
       this.updateHeadOfficeDisplay.bind(this);
       this.logoutFunction.bind(this);
       this.handleClickOpen.bind(this);
@@ -38,21 +36,14 @@ class App extends Component {
     };
 
   
-  updateWareHouseDisplay = (token) => {
-    console.log(token);
+  updateWareHouseDisplay = (token, cnic) => {
     //now send token to the required component
     this.setState({
       IsLoggedInWarehouse:true,
-      onDisplay:<WarehouseDrawer token={token} logoutScreen={this.logoutFunction}/>
+      onDisplay:<WarehouseDrawer token={token} cnic={cnic} logoutScreen={this.logoutFunction}/>
     })
   }
 
-  updateShopDisplay = (token,shopID) => {
-    this.setState({
-      IsLoggedinShop:true,
-      onDisplay:<ShopDrawer token={token} shop={shopID} logoutScreen={this.logoutFunction}/>
-    })
-  }
 
   updateHeadOfficeDisplay = (token) => {
     console.log(token)

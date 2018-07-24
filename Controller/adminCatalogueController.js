@@ -15,7 +15,7 @@ var db = mongoose.connection;
 
 var emp_instance = require('../models/employee');
 var article_instance = require('../models/article');
-
+var sales_instance = require('../models/sales');
 //Function To Login
 exports.loginandGetToken = function(req, res)
 {
@@ -221,3 +221,49 @@ exports.fetchoneByname= function(req,res){
     );
 };
 
+exports.Showsales = function (req, res) {
+    sales_instance.find()
+        .then(sal => {
+            if (sal.length == 0) {
+                res.json({
+                    msg: "No data available to show"
+                })
+            } else
+                res.json(sal);
+        }).catch(err => {
+            return res.status(500).send({
+                message: err.message || "Some error occurred while retrieving all Sales."
+
+            });
+        });
+};
+
+exports.displaySales = function(req,res){
+    fromdate = parseInt(((req.body.fromdate).substr(0, 10)).split("-"));
+    todate = parseInt(((req.body.todate).substr(0, 10)).split("-"));
+    //year-month-day
+    sales_instance.find()
+        .then(sal=>{
+            if (sal.length == 0) {
+                res.json({
+                    msg: "No data available to show"
+            });
+            }
+            else{
+                newobject = 0;
+                for(var i = 0; i < sal.length; i++){
+                    date = parseInt((sal[i]).split("-"));
+                    if(fromdate[0] >= date[0] && todate[0] <= date[0])
+                        if(fromdate[1] >= date[1] && todate[1] <=date[1])
+                            if(fromdate[2] >=date[2] && todate[2] <=date[2])
+                                newobject+= (sal[i].products.retail_price - sal[i].products.factory_price);
+                                //retail - factory
+                }
+                res.json(newobject);
+            }
+        }).catch(err =>{
+            return res.status(500).send({
+                        message: err.message || "Some error occurred while retrieving all Sales."
+        });
+    });
+};

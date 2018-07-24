@@ -12,13 +12,14 @@ import Divider from 'material-ui/Divider';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import List, { ListItem } from 'material-ui/List';
-import AddItem from './AddItem';
 import ViewItems from './ViewItemsTable';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { 
     Router
     }   from 'react-router-dom';
 import FullTable from './FullTable';
+import Sale from './sale/Sale';
+import ViewSales from './sale/ViewSales';
 import Welcome from './Welcome';
 import Dialog, {
   DialogActions,
@@ -26,8 +27,6 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
-import Charts from './Chart';
-
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
 
@@ -107,37 +106,35 @@ class ResponsiveDrawer extends React.Component {
   };
 
  AddItemHandleClick = () => {
-
     this.setState({
-        OnDisplay:<FullTable token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
+        OnDisplay:<Sale cnic={this.props.cnic} token={this.state.t} handleopen={this.handleClickDialogOpen} handleError={this.handleClickerrorDialogOpen}/>
     })
-    console.log("ADd item on click")
+    console.log("Sale Component")
   }
 
   
 
   FullTableHandleClick = () => {
-
     this.setState({
         OnDisplay:<FullTable token={this.state.t}/>
-    })
-    console.log("ADd item on click")
+    });
+    console.log('All Items')
   }
   ViewItemsHandleClick = () => {
-
     this.setState({
         OnDisplay:<ViewItems token={this.state.t}/>
     })
-    console.log("ADd item on click")
+    console.log("Sales")
   }
 
-  StatsHandleClick = () => {
 
+  ViewSales = () => {
     this.setState({
-        OnDisplay:<Charts/>
+        OnDisplay:<ViewSales token={this.state.t}/>
     })
-    console.log("ADd item on click")
+    console.log("sales")
   }
+
   
   handleClickDialogOpen = () => {
     this.setState({ open: true });
@@ -171,7 +168,7 @@ class ResponsiveDrawer extends React.Component {
            <Divider />
             <ListItem button={true} onClick={this.FullTableHandleClick.bind(this)}>All Items</ListItem>
             <Divider/>
-            <ListItem button={true} onClick={this.StatsHandleClick}>Stats</ListItem>
+            <ListItem button={true} onClick={this.ViewSales}>My Sales</ListItem>
             <Divider />
             <ListItem button={true} onClick={this.props.logoutScreen}>Logout</ListItem>
             <Divider />
@@ -196,7 +193,7 @@ class ResponsiveDrawer extends React.Component {
                 <MenuIcon/>
               </IconButton>
               <Typography variant="title" color="inherit" noWrap>
-              Powered By DevelopMeThis
+                The filli
               </Typography>
             </Toolbar>
           </AppBar>

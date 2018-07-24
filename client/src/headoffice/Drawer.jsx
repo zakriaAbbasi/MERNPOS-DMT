@@ -13,6 +13,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import List, { ListItem } from 'material-ui/List';
 import AddNewLogin from './AddLogin';
+import ViewSales from './Sales/Sales';
 import ViewAll from './ViewAll';
 import createBrowserHistory from 'history/createBrowserHistory';
 import { 
@@ -27,8 +28,8 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import AddItem from './AddItem/AddItem';
 import ViewAllItems from './AddItem/ViewAllItems';
-
-
+import Charts from './Stats/Chart';
+import CheckChart from './CheckSummary/CheckChart'
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -141,6 +142,30 @@ class ResponsiveDrawer extends React.Component {
   console.log("View All item Click")
 }
 
+ViewSales = () => {
+
+  this.setState({
+      OnDisplay:<ViewSales token={this.state.t}/>
+  })
+  console.log("View All item Click")
+}
+
+ViewStats = () => {
+
+  this.setState({
+      OnDisplay:<Charts token={this.state.t} />
+  })
+  console.log("View All item Click")
+}
+
+CheckSummaryChart = () => {
+
+  this.setState({
+      OnDisplay:<CheckChart token={this.state.t} />
+  })
+  console.log("View All item Click")
+}
+
 
   handleClickDialogOpen = () => {
     this.setState({ open: true });
@@ -178,6 +203,12 @@ class ResponsiveDrawer extends React.Component {
             <Divider/>
             <ListItem button={true} onClick={this.ViewAllItems.bind(this)}>View All Items</ListItem>
             <Divider/>
+            <ListItem button={true} onClick={this.ViewSales.bind(this)}>View Sales</ListItem>
+            <Divider/>
+            <ListItem button={true} onClick={this.ViewStats.bind(this)}>View Stats</ListItem>
+            <Divider/>
+            <ListItem button={true} onClick={this.CheckSummaryChart.bind(this)}>Custom Check Sales</ListItem>
+            <Divider/>
             <ListItem button={true} onClick={this.props.logoutScreen}>Logout</ListItem>
             <Divider />
             </MuiThemeProvider>
@@ -200,7 +231,7 @@ class ResponsiveDrawer extends React.Component {
                 <MenuIcon/>
               </IconButton>
               <Typography variant="title" color="inherit" noWrap>
-                Powered By DevelopMeThis
+                The filli
               </Typography>
             </Toolbar>
           </AppBar>
@@ -244,7 +275,7 @@ class ResponsiveDrawer extends React.Component {
           <DialogTitle id="alert-dialog-title">{"Notification"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              User Added
+              Done, Move On.
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -263,7 +294,7 @@ class ResponsiveDrawer extends React.Component {
           <DialogTitle id="alert-dialog-title">{"Notification"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              User not added, Try again.
+             Not Done due to some error, try again!
             </DialogContentText>
           </DialogContent>
           <DialogActions>

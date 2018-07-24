@@ -16,6 +16,7 @@ router.post('/deleteitem',Controller.DeleteArticle);
 router.post('/viewallitems',Controller.FetchAllArticle);
 router.post('/fetchitembyname',Controller.fetchoneByname);
 router.post('/fetchitembyid',Controller.fetchoneByid);
+router.post('/fetchsales',Controller.Showsales);
 
 module.exports = router;
 

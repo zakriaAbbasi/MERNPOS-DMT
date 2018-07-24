@@ -46,11 +46,11 @@ const styles = theme => ({
 
 const dropdowntypes = [
   {
-    value: 'admin',
+    value: 'emp',
     label: 'Employee',
   },
   {
-    value: 'head',
+    value: 'admin',
     label: 'Admin',
   },
 ];
@@ -68,7 +68,7 @@ class TextFields extends React.Component {
    this.state = {
       userName: '',
       Password: '',
-      type:'admin'
+      type:'emp'
     };
 
   }
@@ -94,12 +94,13 @@ class TextFields extends React.Component {
   };
 
   handleClick = () => {
+    var temp = this.state.userName; 
     console.log(this.state)
     var details = {
      'name': this.state.userName,
      'password': this.state.Password,
      'type':this.state.type
- };
+    };
  
 
  var formBody = [];
@@ -121,13 +122,11 @@ class TextFields extends React.Component {
  .then(res=>{
    console.log("we are in this function");
    if(res){
-    console.log(res);
-    console.log(res.token);
-     if(res.type==="head"){
-      this.props.updateHeadOffice(res.token);
+     if(res.type==="emp"){
+      this.props.updateWarehouse(res.token, temp);
      }
      else if(res.type==='admin'){
-      this.props.updateWarehouse(res.token);
+      this.props.updateHeadOffice(res.token);
      }
      else{
        this.props.handleOpen();
@@ -140,7 +139,7 @@ class TextFields extends React.Component {
  this.setState({
       userName:'',
       Password:'',
-      type:'admin'
+      type:'emp'
     })
 
   }
@@ -176,11 +175,9 @@ class TextFields extends React.Component {
       <div>
            <AppBar className={classes.appBar}>
       <Toolbar>
-      <a href="http://developmethis.com">
         <Typography variant="title" color="inherit" noWrap>
-       Powered By DevelopMeThis
+          The filli
         </Typography>
-        </a>
       </Toolbar>
     </AppBar>
     <Typography variant="display1" color="inherit" align="center" className={classes.typeobar}>
