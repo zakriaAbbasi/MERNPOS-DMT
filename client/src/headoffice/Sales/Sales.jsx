@@ -101,7 +101,6 @@ class ViewSales extends React.Component {
             {
                Object.values(this.state.data).map((type,index) => {
                  return (
-                   <div>
                     <TableRow className={classes.row} key={index}>
                       <CustomTableCell >{type.Emp_Cnic}</CustomTableCell>
                       <CustomTableCell numeric > {type.date_sale} </CustomTableCell>
@@ -114,7 +113,6 @@ class ViewSales extends React.Component {
                           }
                         </CustomTableCell>
                     </TableRow>
-                  </div>
                 );
               })
             }

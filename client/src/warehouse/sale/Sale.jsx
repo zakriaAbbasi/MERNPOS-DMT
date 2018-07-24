@@ -169,7 +169,8 @@ class Sale extends React.Component {
     let temp = parseInt(this.state.discount,10);
     temp=((temp/100)*this.state.bill)
     this.setState({
-      bill:this.state.bill-temp
+      bill:this.state.bill-temp,
+      discount:0
     })
   }
   changeItemName = e => {
@@ -264,18 +265,20 @@ class Sale extends React.Component {
                     <TableHead className={classes.tablehead}>
                       <TableRow>
                         <CustomTableCell>Name</CustomTableCell>
-                        <CustomTableCell >Price</CustomTableCell>
-                        <CustomTableCell >ID</CustomTableCell>
-                        <CustomTableCell >Sale</CustomTableCell> 
+                        <CustomTableCell numeric >Price</CustomTableCell>
+                        
+                        <CustomTableCell numeric>Description</CustomTableCell> 
+                        <CustomTableCell numeric>Sale</CustomTableCell> 
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {Object.values(this.state.data).map((type,index) => {
                             return (
                               <TableRow className={classes.row} key={type._id} selectable={true}>
-                                <CustomTableCell>{type.item_name}</CustomTableCell>
-                                <CustomTableCell >{type.retail_price}</CustomTableCell>
-                                <CustomTableCell >{type.item_id}</CustomTableCell>
+                                <CustomTableCell >{type.item_name}</CustomTableCell>
+                                <CustomTableCell numeric >{type.retail_price}</CustomTableCell>
+                                
+                                <CustomTableCell numeric >{type.description}</CustomTableCell>
                                 <CustomTableCell >
                                 <Button  aria-label="Add" onClick={()=>{this.deleteClick(index)}} >
                                 <Cart/>
@@ -323,7 +326,7 @@ class Sale extends React.Component {
                className={classes.textField}
                margin="normal"
               />
-              <Button variant='raised' aria-label="Done" onClick={this.setDiscount}>Yes</Button>
+              <Button variant='raised' aria-label="Done" onClick={this.setDiscount}>OK</Button>
           </div>
         );
       }

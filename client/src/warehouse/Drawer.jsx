@@ -96,6 +96,7 @@ class ResponsiveDrawer extends React.Component {
       t:this.props.token,
       open:false,
       openError:false,
+      cnic:this.props.cnic
     };
 
 
@@ -130,7 +131,7 @@ class ResponsiveDrawer extends React.Component {
 
   ViewSales = () => {
     this.setState({
-        OnDisplay:<ViewSales token={this.state.t}/>
+        OnDisplay:<ViewSales token={this.state.t} cnic={this.state.cnic}/>
     })
     console.log("sales")
   }
