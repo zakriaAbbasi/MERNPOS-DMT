@@ -258,8 +258,8 @@ exports.displaySales = function(req,res){
             });
             }
             else{
-                newobject = 0;
-                date = '';
+                profit = 0;
+                totalsale = 0;
                 for(var i = 0; i < sal.length; i++){
                     for(var j = 0; j < sal[i].products.length; j++){
                         date = new Date(sal[i].date_sale);
@@ -270,13 +270,14 @@ exports.displaySales = function(req,res){
                             if(frommonth <= month && tomonth >=month){
                                 if(fromday <=day && today >=day){
                                     console.log('hello');
-                                    newobject+= (sal[i].products[j].retail_price - sal[i].products[j].factory_price);
+                                    profit+= (sal[i].products[j].retail_price - sal[i].products[j].factory_price);
+                                    totalsale+= (sal[i].total);
                                 }
                             }
                         }
                     }
                 }
-                res.json(newobject);
+                res.json({profit:profit,totalsale:totalsale});
             }
         }).catch(err =>{
             return res.status(500).send({
