@@ -150,7 +150,8 @@ class Sale extends React.Component {
       billTemp += parseInt(item.retail_price)
     });
     this.setState({
-      bill:billTemp
+      bill:billTemp,
+      originalBill:billTemp,
     });
   }
 
@@ -233,6 +234,7 @@ class Sale extends React.Component {
       id:'',
       cartItems:[],
       bill:0,
+      originalBill:0,
       discount:0,
       itemName:''
     }
@@ -311,12 +313,12 @@ class Sale extends React.Component {
                       </TableBody>
                     </Table>
                 </Paper>
-                <Button  variant="raised" aria-label="Add" onClick={()=>{this.checkOut()}} >
-                   CheckOut
-                </Button>
               </Grid>
             </Grid>
-            <h2 className="text-center"> Total Bill = {this.state.bill}</h2>
+            <h2 className="text-center"> Original Bill = {this.state.originalBill}</h2>
+            <h2 className="text-center"> Discounted Bill = {this.state.bill}</h2>
+            <Grid container spacing={12}>
+              <Grid item xs={12}>
             <TextField
              id="discount"
               label="discount"
@@ -326,7 +328,15 @@ class Sale extends React.Component {
                className={classes.textField}
                margin="normal"
               />
-              <Button variant='raised' aria-label="Done" onClick={this.setDiscount}>OK</Button>
+               <Button variant='raised' aria-label="Done" onClick={this.setDiscount}>OK</Button>
+              </Grid>
+             
+              <Grid item xs={12}>
+              <Button  variant="raised" aria-label="Add" onClick={()=>{this.checkOut()}} >
+                   CheckOut
+                </Button>
+                </Grid>
+                </Grid>
           </div>
         );
       }
