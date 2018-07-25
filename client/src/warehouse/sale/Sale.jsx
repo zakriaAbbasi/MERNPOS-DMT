@@ -35,7 +35,8 @@ const styles = theme => ({
     align:'center',
   },
   setHeight:{
-    height:'80vh'
+    height:'90vh',
+    marginTop:'-50px'
   },
   paperHeight:{
     height:400,
@@ -154,6 +155,16 @@ class Sale extends React.Component {
       originalBill:billTemp,
     });
   }
+
+
+  ResetBill=()=>{
+    this.setState({
+      bill:0,
+      cartItems:[],
+      originalBill:0,
+    });
+  }
+
 
   deleteClickHandler = () => {
     this.setState({
@@ -313,6 +324,9 @@ class Sale extends React.Component {
                       </TableBody>
                     </Table>
                 </Paper>
+                <Button  variant="raised" aria-label="Add" onClick={()=>{this.ResetBill()}} >
+                   Reset Bill
+                </Button>
               </Grid>
             </Grid>
             <h2 className="text-center"> Original Bill = {this.state.originalBill}</h2>
