@@ -238,7 +238,6 @@ canBeSubmitted() {
     );
   }
 }
-
 TextFields.propTypes = {
   classes: PropTypes.object.isRequired,
 };

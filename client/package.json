@@ -7,6 +7,7 @@
     "fusioncharts": "^3.12.2",
     "history": "^4.7.2",
     "material-ui": "^1.0.0-beta.42",
+    "moment": "^2.22.2",
     "qr-image": "^3.2.0",
     "react": "^16.3.2",
     "react-autosuggest": "^9.3.4",
