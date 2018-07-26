@@ -16,7 +16,7 @@ var emp_instance = require('../models/employee');
 var sales_instance = require('../models/sales');
 var article_instance = require('../models/article');
 var Article = require('../models/article');
-
+var de_instance = require('../models/daily_expense');
 //Function to Authenticate and Authorize head
 exports.loginandGetToken = function (req, res) {
     emp_instance.findOne(
@@ -124,4 +124,27 @@ exports.Showsales = function (req, res) {
 
             });
         });
+};
+exports.FetchDailyExpense = function (req, res) {
+    de_instance.find()
+        .then(de => {
+            if (de.length == 0) {
+                res.json({
+                    msg: "No data available to show"
+                })
+            } else
+                res.json(de);
+        }).catch(err => {
+            return res.status(500).send({
+                message: err.message || "Some error occurred while retrieving all Daily Expenses"
+
+            });
+        });
+};
+exports.AddDailyExpense = function (req, res) {
+    de = new de_instance();
+    de.date = req.body.date;
+    de.expense = parseInt(req.body.expense);
+    de.description = req.body.description;
+    de.save(function () {});
 };
