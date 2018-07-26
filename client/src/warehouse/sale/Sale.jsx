@@ -139,7 +139,9 @@ class Sale extends React.Component {
       // reseting Bill portion
       this.setState({
         cartItems:[],
-        bill:0
+        bill:0,
+        discount:0,
+
       });
   }
   
@@ -162,6 +164,8 @@ class Sale extends React.Component {
       bill:0,
       cartItems:[],
       originalBill:0,
+      cartItems:[],
+      itemName:''
     });
   }
 
