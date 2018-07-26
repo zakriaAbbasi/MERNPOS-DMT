@@ -142,9 +142,16 @@ exports.FetchDailyExpense = function (req, res) {
         });
 };
 exports.AddDailyExpense = function (req, res) {
-    de = new de_instance();
-    de.date = req.body.date;
-    de.expense = parseInt(req.body.expense);
-    de.description = req.body.description;
-    de.save(function () {});
+    var de = new de_instance({
+        date: req.body.date,
+        expense: parseInt(req.body.expense),
+        description: req.body.description
+    });
+    de_instance.create(de,function(err,post){
+        if (err) {
+            console.log(err);
+            return err;
+        }
+        res.json(post);
+    });
 };

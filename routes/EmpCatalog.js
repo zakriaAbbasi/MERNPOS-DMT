@@ -10,6 +10,6 @@ router.use(varifyToken);
 router.post('/FetchItems',Controller.FetchAllArticle);
 router.post('/Makesale',Controller.makesale);
 router.post('/fetchsales',Controller.Showsales);
-router.get('/fetchdexp',Controller.FetchDailyExpense);
+router.post('/fetchdexp',Controller.FetchDailyExpense);
 router.post('/add-dexpense',Controller.AddDailyExpense);
 module.exports = router;
