@@ -35,7 +35,8 @@ const styles = theme => ({
     align:'center',
   },
   setHeight:{
-    height:'80vh'
+    height:'90vh',
+    marginTop:'-50px'
   },
   paperHeight:{
     height:400,
@@ -150,9 +151,20 @@ class Sale extends React.Component {
       billTemp += parseInt(item.retail_price)
     });
     this.setState({
-      bill:billTemp
+      bill:billTemp,
+      originalBill:billTemp,
     });
   }
+
+
+  ResetBill=()=>{
+    this.setState({
+      bill:0,
+      cartItems:[],
+      originalBill:0,
+    });
+  }
+
 
   deleteClickHandler = () => {
     this.setState({
@@ -169,7 +181,8 @@ class Sale extends React.Component {
     let temp = parseInt(this.state.discount,10);
     temp=((temp/100)*this.state.bill)
     this.setState({
-      bill:this.state.bill-temp
+      bill:this.state.bill-temp,
+      discount:0
     })
   }
   changeItemName = e => {
@@ -232,6 +245,7 @@ class Sale extends React.Component {
       id:'',
       cartItems:[],
       bill:0,
+      originalBill:0,
       discount:0,
       itemName:''
     }
@@ -264,18 +278,20 @@ class Sale extends React.Component {
                     <TableHead className={classes.tablehead}>
                       <TableRow>
                         <CustomTableCell>Name</CustomTableCell>
-                        <CustomTableCell >Price</CustomTableCell>
-                        <CustomTableCell >ID</CustomTableCell>
-                        <CustomTableCell >Sale</CustomTableCell> 
+                        <CustomTableCell numeric >Price</CustomTableCell>
+                        
+                        <CustomTableCell numeric>Description</CustomTableCell> 
+                        <CustomTableCell numeric>Sale</CustomTableCell> 
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {Object.values(this.state.data).map((type,index) => {
                             return (
                               <TableRow className={classes.row} key={type._id} selectable={true}>
-                                <CustomTableCell>{type.item_name}</CustomTableCell>
-                                <CustomTableCell >{type.retail_price}</CustomTableCell>
-                                <CustomTableCell >{type.item_id}</CustomTableCell>
+                                <CustomTableCell >{type.item_name}</CustomTableCell>
+                                <CustomTableCell numeric >{type.retail_price}</CustomTableCell>
+                                
+                                <CustomTableCell numeric >{type.description}</CustomTableCell>
                                 <CustomTableCell >
                                 <Button  aria-label="Add" onClick={()=>{this.deleteClick(index)}} >
                                 <Cart/>
@@ -308,12 +324,15 @@ class Sale extends React.Component {
                       </TableBody>
                     </Table>
                 </Paper>
-                <Button  variant="raised" aria-label="Add" onClick={()=>{this.checkOut()}} >
-                   CheckOut
+                <Button  variant="raised" aria-label="Add" onClick={()=>{this.ResetBill()}} >
+                   Reset Bill
                 </Button>
               </Grid>
             </Grid>
-            <h2 className="text-center"> Total Bill = {this.state.bill}</h2>
+            <h2 className="text-center"> Original Bill = {this.state.originalBill}</h2>
+            <h2 className="text-center"> Discounted Bill = {this.state.bill}</h2>
+            <Grid container spacing={12}>
+              <Grid item xs={12}>
             <TextField
              id="discount"
               label="discount"
@@ -323,7 +342,15 @@ class Sale extends React.Component {
                className={classes.textField}
                margin="normal"
               />
-              <Button variant='raised' aria-label="Done" onClick={this.setDiscount}>Yes</Button>
+               <Button variant='raised' aria-label="Done" onClick={this.setDiscount}>OK</Button>
+              </Grid>
+             
+              <Grid item xs={12}>
+              <Button  variant="raised" aria-label="Add" onClick={()=>{this.checkOut()}} >
+                   CheckOut
+                </Button>
+                </Grid>
+                </Grid>
           </div>
         );
       }

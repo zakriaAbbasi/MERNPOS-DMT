@@ -137,7 +137,7 @@ class DatePickers extends React.Component {
                 <form className={classes.container} noValidate>
                 <TextField
                     id="date1"
-                    label="Birthday"
+                    label="From "
                     type="date"
                     defaultValue="2018-07-24"
                     onChange={e => this.setDate1(e)}
@@ -150,7 +150,7 @@ class DatePickers extends React.Component {
                 <form className={classes.container} noValidate>
                 <TextField
                     id="date1"
-                    label="Birthday"
+                    label="To"
                     type="date"
                     defaultValue="2018-07-25"
                     onChange={e => this.setDate2(e)}

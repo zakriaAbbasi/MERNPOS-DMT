@@ -99,12 +99,11 @@ class ViewSales extends React.Component {
           </TableHead>
           <TableBody>
             {
-               Object.values(this.state.data).map((type,index) => {
+              Object.values(this.state.data).map((type,index) => {
                  return (
-                   <div>
                     <TableRow className={classes.row} key={index}>
                       <CustomTableCell >{type.Emp_Cnic}</CustomTableCell>
-                      <CustomTableCell numeric > {type.date_sale} </CustomTableCell>
+                      <CustomTableCell numeric> Date  :  {type.date_sale.split("T",1)}      Time :{(type.date_sale.split(/[T]/)).pop().substr(0,7)}</CustomTableCell>
                       <CustomTableCell numeric>{type.total}</CustomTableCell>
                       <CustomTableCell numeric>
                         {
@@ -114,7 +113,6 @@ class ViewSales extends React.Component {
                           }
                         </CustomTableCell>
                     </TableRow>
-                  </div>
                 );
               })
             }

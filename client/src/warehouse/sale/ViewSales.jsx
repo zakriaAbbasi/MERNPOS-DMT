@@ -24,6 +24,9 @@ const styles = theme => ({
   table: {
     minWidth: 700,
   },
+  tablehead : {
+    align:'center',
+  },
   row: {
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.background.default,
@@ -36,7 +39,8 @@ class ViewSales extends React.Component {
 
   componentDidMount(){
     var details = {
-      'token':this.state.t
+      'token':this.state.t,
+      'cnic':this.state.c
   };
     var formBody = [];
     for (var property in details) {
@@ -46,7 +50,7 @@ class ViewSales extends React.Component {
     }
     formBody = formBody.join("&");
     
-    fetch('/emp/showsales', {
+    fetch('/emp/fetchsales', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -57,6 +61,7 @@ class ViewSales extends React.Component {
     .then(res=>{
       console.log("we are in this function");
       console.log(this.state.t);
+      console.log(this.state.c)
       if(res){
        this.setState({
          data:res
@@ -75,6 +80,7 @@ class ViewSales extends React.Component {
       this.state={
         data:{},
         t:this.props.token,
+        c:this.props.cnic
       }
 
     };
@@ -87,33 +93,30 @@ class ViewSales extends React.Component {
       <Typography variant="display2"> Your Sales</Typography>
       <Paper className={classes.root}>
         <Table className={classes.table}>
-          <TableHead>
+          <TableHead className={classes.tablehead}>
             <TableRow>
               <CustomTableCell>Sold By</CustomTableCell>
-              <CustomTableCell numeric>On Date</CustomTableCell>
-              <CustomTableCell numeric>Total Bill</CustomTableCell>
+              <CustomTableCell>Total</CustomTableCell>
+              <CustomTableCell>Date</CustomTableCell>
+              <CustomTableCell>Items</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {
                Object.values(this.state.data).map((type,index) => {
                  return (
-                   <div>
-                    <TableRow key={type.Emp_cnic}>
+                    <TableRow className={classes.row} key={index} selectable={true}>
                       <CustomTableCell>{type.Emp_Cnic}</CustomTableCell>
-                      <CustomTableCell numeric> {type.date_sale} </CustomTableCell>
-                      <CustomTableCell numeric>{type.total}</CustomTableCell>
-                    </TableRow>
-                    <TableRow key={type.Emp_Cnic}>
+                      <CustomTableCell >{type.total}</CustomTableCell>
+                      <CustomTableCell > {type.date_sale} </CustomTableCell>
+                      <CustomTableCell>
                         {
                           type.products.map((item)=>{
-                            
-                            return(<CustomTableCell>{item.item_name}</CustomTableCell>)
-                          
+                            return(item.item_name)+"," 
                           })
                           }
+                      </CustomTableCell>     
                     </TableRow>
-                  </div>
                 );
               })
             }
