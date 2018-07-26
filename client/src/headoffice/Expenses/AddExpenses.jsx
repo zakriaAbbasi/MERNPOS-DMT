@@ -79,6 +79,9 @@ class CustomizedTable extends React.Component {
     this.state={
       data:{},
       t:this.props.token,
+      expenses:'',
+      description:'',
+      date:'',
     }
 };
 
@@ -149,6 +152,22 @@ fetch('/admin/ShowArticles', {
 ); 
 
 }
+changeExpenses = e => {
+  this.setState({
+    expenses: e.target.value
+  });
+};
+changeDescription = e => {
+  this.setState({
+    description: e.target.value
+  });
+};
+changeDate = e => {
+  this.setState({
+    date: e.target.value
+  });
+};
+
 handleClick = () => {
 
 }
