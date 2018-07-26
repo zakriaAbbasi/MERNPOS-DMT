@@ -38,7 +38,7 @@ const styles = theme => ({
 
 class CustomizedTable extends React.Component {
 
-  componentDidMount(){
+  componentWillMount(){
     var details = {
       'token':this.state.t
   };
@@ -61,6 +61,7 @@ class CustomizedTable extends React.Component {
     .then(res=>{
       console.log("we are in this function");
       console.log(this.state.t);
+      console.log(res)
       if(res){
        console.log(res);
        this.setState({
@@ -83,75 +84,8 @@ class CustomizedTable extends React.Component {
       description:'',
       date:'',
     }
-};
-
-deleteClick = (index) => {
-  console.log({index})
-  console.log(this.state.data[index])
-  var details = {
-    'token':this.state.t,
-    'cnic':this.state.data[index].cnic,
-};
-
-
-var formBody = [];
-for (var property in details) {
-  var encodedKey = encodeURIComponent(property);
-  var encodedValue = encodeURIComponent(details[property]);
-  formBody.push(encodedKey + "=" + encodedValue);
 }
-formBody = formBody.join("&");
 
-
-fetch('/admin/deleteemp', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
-  },
-  body: formBody
-})
-.then(res=>res.json())
-.then(res=>{
-
-  //console.log("we are in this function");
-  if(res){
-    console.log(res);
-    var details = {
-      'token':this.state.t
-  };  
-
-var formBody = [];
-for (var property in details) {
-  var encodedKey = encodeURIComponent(property);
-  var encodedValue = encodeURIComponent(details[property]);
-  formBody.push(encodedKey + "=" + encodedValue);
-}
-formBody = formBody.join("&");
-
-
-fetch('/admin/ShowArticles', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
-  },
-  body: formBody
-})
-.then(res=>res.json())
-.then(res=>{
-
-  if(res){
-   this.setState({
-     data:res
-   })
-  };
-}
-);   
-    console.log("After function");
-  };
-}
-); 
-
-}
 changeExpenses = e => {
   this.setState({
     expenses: e.target.value
@@ -169,6 +103,7 @@ changeDate = e => {
 };
 
 handleClick = () => {
+  console.log('Add Click')
   var details = {
     'token':this.state.t,
     'expenses':this.state.expenses,
@@ -197,6 +132,7 @@ fetch('/emp/add-dexpense', {
 .then(res=>{
   if(res){
     console.log(res);
+
     var details = {
       'token':this.state.t,
   };  
