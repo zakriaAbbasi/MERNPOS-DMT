@@ -38,7 +38,7 @@ const styles = theme => ({
 
 class CustomizedTable extends React.Component {
 
-  componentDidMount(){
+  componentWillMount(){
     var details = {
       'token':this.state.t
   };
@@ -50,7 +50,7 @@ class CustomizedTable extends React.Component {
     }
     formBody = formBody.join("&");
     
-    fetch('/admin/showallemps', {
+    fetch('/emp/fetchdexp', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -61,6 +61,7 @@ class CustomizedTable extends React.Component {
     .then(res=>{
       console.log("we are in this function");
       console.log(this.state.t);
+      console.log(res)
       if(res){
        console.log(res);
        this.setState({
@@ -83,14 +84,31 @@ class CustomizedTable extends React.Component {
       description:'',
       date:'',
     }
+}
+
+changeExpenses = e => {
+  this.setState({
+    expenses: e.target.value
+  });
+};
+changeDescription = e => {
+  this.setState({
+    description: e.target.value
+  });
+};
+changeDate = e => {
+  this.setState({
+    date: e.target.value
+  });
 };
 
-deleteClick = (index) => {
-  console.log({index})
-  console.log(this.state.data[index])
+handleClick = () => {
+  console.log('Add Click')
   var details = {
     'token':this.state.t,
-    'cnic':this.state.data[index].cnic,
+    'expenses':this.state.expenses,
+    'description':this.state.description,
+    'date':new Date()
 };
 
 
@@ -103,7 +121,7 @@ for (var property in details) {
 formBody = formBody.join("&");
 
 
-fetch('/admin/deleteemp', {
+fetch('/emp/add-dexpense', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -112,12 +130,11 @@ fetch('/admin/deleteemp', {
 })
 .then(res=>res.json())
 .then(res=>{
-
-  //console.log("we are in this function");
   if(res){
     console.log(res);
+
     var details = {
-      'token':this.state.t
+      'token':this.state.t,
   };  
 
 var formBody = [];
@@ -128,8 +145,7 @@ for (var property in details) {
 }
 formBody = formBody.join("&");
 
-
-fetch('/admin/ShowArticles', {
+fetch('/emp/fetchdexp', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -150,27 +166,15 @@ fetch('/admin/ShowArticles', {
   };
 }
 ); 
+this.setState({
+  expenses:'',
+  date:'',
+  description:''
+})
 
 }
-changeExpenses = e => {
-  this.setState({
-    expenses: e.target.value
-  });
-};
-changeDescription = e => {
-  this.setState({
-    description: e.target.value
-  });
-};
-changeDate = e => {
-  this.setState({
-    date: e.target.value
-  });
-};
 
-handleClick = () => {
 
-}
   render() {
     const { classes } = this.props;
     return (
@@ -212,7 +216,7 @@ handleClick = () => {
 
 <CardContent>
   <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick.bind(this)} >
-  Login
+  Add
   </Button>
   </CardContent>
 </form>

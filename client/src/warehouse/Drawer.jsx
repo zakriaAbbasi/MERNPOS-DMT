@@ -27,6 +27,7 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
+import AddExpenses from './Expenses/AddExpenses';
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
 
@@ -136,6 +137,13 @@ class ResponsiveDrawer extends React.Component {
     console.log("sales")
   }
 
+  AddExpenses = () => {
+
+    this.setState({
+        OnDisplay:<AddExpenses token={this.state.t} />
+    })
+    console.log("View All item Click")
+  }
   
   handleClickDialogOpen = () => {
     this.setState({ open: true });
@@ -171,6 +179,8 @@ class ResponsiveDrawer extends React.Component {
             <Divider/>
             <ListItem button={true} onClick={this.ViewSales}>My Sales</ListItem>
             <Divider />
+            <ListItem button={true} onClick={this.AddExpenses.bind(this)}>Add Expenses</ListItem>
+            <Divider/>
             <ListItem button={true} onClick={this.props.logoutScreen}>Logout</ListItem>
             <Divider />
            {/*<ListItem><Button onClick={this.ViewItemsHandleClick.bind(this)}>View Items</Button></ListItem>*/} 

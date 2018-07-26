@@ -30,7 +30,7 @@ import AddItem from './AddItem/AddItem';
 import ViewAllItems from './AddItem/ViewAllItems';
 import Charts from './Stats/Chart';
 import CheckChart from './CheckSummary/CheckChart'
-import AddExpenses from './Expenses/AddExpenses';
+
 
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
@@ -166,13 +166,7 @@ CheckSummaryChart = () => {
   })
   console.log("View All item Click")
 }
-AddExpenses = () => {
 
-  this.setState({
-      OnDisplay:<AddExpenses token={this.state.t} />
-  })
-  console.log("View All item Click")
-}
 
 
   handleClickDialogOpen = () => {
@@ -216,8 +210,6 @@ AddExpenses = () => {
             <ListItem button={true} onClick={this.ViewStats.bind(this)}>View Stats</ListItem>
             <Divider/>
             <ListItem button={true} onClick={this.CheckSummaryChart.bind(this)}>Custom Check Sales</ListItem>
-            <Divider/>
-            <ListItem button={true} onClick={this.AddExpenses.bind(this)}>Add Expenses</ListItem>
             <Divider/>
             <ListItem button={true} onClick={this.props.logoutScreen}>Logout</ListItem>
             <Divider />
