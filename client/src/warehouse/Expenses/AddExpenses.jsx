@@ -50,7 +50,7 @@ class CustomizedTable extends React.Component {
     }
     formBody = formBody.join("&");
     
-    fetch('/admin/showallemps', {
+    fetch('/emp/fetchdexp', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -169,8 +169,76 @@ changeDate = e => {
 };
 
 handleClick = () => {
+  var details = {
+    'token':this.state.t,
+    'expenses':this.state.expenses,
+    'description':this.state.description,
+    'date':new Date()
+};
+
+
+var formBody = [];
+for (var property in details) {
+  var encodedKey = encodeURIComponent(property);
+  var encodedValue = encodeURIComponent(details[property]);
+  formBody.push(encodedKey + "=" + encodedValue);
+}
+formBody = formBody.join("&");
+
+
+fetch('/emp/add-dexpense', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+  },
+  body: formBody
+})
+.then(res=>res.json())
+.then(res=>{
+  if(res){
+    console.log(res);
+    var details = {
+      'token':this.state.t,
+  };  
+
+var formBody = [];
+for (var property in details) {
+  var encodedKey = encodeURIComponent(property);
+  var encodedValue = encodeURIComponent(details[property]);
+  formBody.push(encodedKey + "=" + encodedValue);
+}
+formBody = formBody.join("&");
+
+fetch('/emp/fetchdexp', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+  },
+  body: formBody
+})
+.then(res=>res.json())
+.then(res=>{
+
+  if(res){
+   this.setState({
+     data:res
+   })
+  };
+}
+);   
+    console.log("After function");
+  };
+}
+); 
+this.setState({
+  expenses:'',
+  date:'',
+  description:''
+})
 
 }
+
+
   render() {
     const { classes } = this.props;
     return (
@@ -212,7 +280,7 @@ handleClick = () => {
 
 <CardContent>
   <Button variant="raised" color="primary" className={classes.button} onClick={this.handleClick.bind(this)} >
-  Login
+  Add
   </Button>
   </CardContent>
 </form>
