@@ -124,7 +124,7 @@ class Sale extends React.Component {
   formBody = formBody.join("&");
   
   
-      fetch('/emp/sale', {
+      fetch('/emp/Makesale', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -141,7 +141,7 @@ class Sale extends React.Component {
         cartItems:[],
         bill:0,
         discount:0,
-
+        originalBill:0
       });
   }
   
