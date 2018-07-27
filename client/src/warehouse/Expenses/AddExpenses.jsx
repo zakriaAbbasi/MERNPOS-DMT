@@ -228,6 +228,7 @@ this.setState({
               <CustomTableCell>Expenses</CustomTableCell>
               <CustomTableCell numeric>Description</CustomTableCell>
               <CustomTableCell numeric>Date</CustomTableCell>
+              <CustomTableCell numeric>Delete</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -236,10 +237,10 @@ this.setState({
                Object.values(this.state.data).map((type,index) => {
                 
                  return (
-                  <TableRow className={classes.row} key={type.Emp_cnic}>
-                    <CustomTableCell>{type.name}</CustomTableCell>
-                    <CustomTableCell numeric>{type.cnic}</CustomTableCell>
-                    <CustomTableCell numeric>{type.password}</CustomTableCell>
+                  <TableRow className={classes.row} key={type._id}>
+                    <CustomTableCell>{type.expense}</CustomTableCell>
+                    <CustomTableCell numeric>{type.description}</CustomTableCell>
+                    <CustomTableCell numeric>{type.date.slice("T",1)}</CustomTableCell>
                     <CustomTableCell numeric>
                     <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
                     <DeleteIcon />
