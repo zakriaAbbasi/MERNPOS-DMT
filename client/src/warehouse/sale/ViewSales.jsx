@@ -68,8 +68,17 @@ class ViewSales extends React.Component {
        });
       };
     }
-    );
-
+    ).then(()=>{
+      var totalTemp = 0;
+    this.state.data.forEach(element => {
+      totalTemp+=element.total;
+    });
+    this.setState({
+      total:totalTemp
+    });
+    })
+    
+  
   };
 
     
@@ -79,6 +88,7 @@ class ViewSales extends React.Component {
       super(props)
       this.state={
         data:{},
+        total:0,
         t:this.props.token,
         c:this.props.cnic
       }
@@ -108,7 +118,7 @@ class ViewSales extends React.Component {
                     <TableRow className={classes.row} key={index} selectable={true}>
                       <CustomTableCell>{type.Emp_Cnic}</CustomTableCell>
                       <CustomTableCell >{type.total}</CustomTableCell>
-                      <CustomTableCell > {type.date_sale} </CustomTableCell>
+                      <CustomTableCell > Date  :  {type.date_sale.split("T",1)}      Time :{(type.date_sale.split(/[T]/)).pop().substr(0,7)} </CustomTableCell>
                       <CustomTableCell>
                         {
                           type.products.map((item)=>{
@@ -122,6 +132,7 @@ class ViewSales extends React.Component {
             }
           </TableBody>
         </Table>
+        <h3>Total is = {this.state.total}</h3>
       </Paper>
       </div>
     );
