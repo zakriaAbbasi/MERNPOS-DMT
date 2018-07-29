@@ -59,9 +59,6 @@ class ViewSales extends React.Component {
     })
     .then(res=>res.json())
     .then(res=>{
-      console.log("we are in this function");
-      console.log(this.state.t);
-      console.log(this.state.c)
       if(res){
        this.setState({
          data:res
