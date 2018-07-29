@@ -96,6 +96,7 @@ class Sale extends React.Component {
             cartItems : temp
           });
           this.reCalculateBill();
+          console.log(this.state.cartItems);
   }
 
 
@@ -106,7 +107,7 @@ class Sale extends React.Component {
       itemIdArray.push(item.item_id);
     });
     var date = new Date();
-
+console.log(itemIdArray);
     var details = {
       'token':this.state.t,
       'sale':date,
