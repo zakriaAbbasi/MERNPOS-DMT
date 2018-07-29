@@ -107,8 +107,6 @@ exports.makesale = function (req, res) {
 exports.Showsales = function (req, res) {
     sales_instance.find({Emp_Cnic: req.body.cnic})
         .then(sal => {
-            console.log('hello')
-            console.log(sal[0].products);
             if (sal.length == 0) {
                 res.json({
                     msg: "No data available to show"
@@ -146,7 +144,6 @@ exports.AddDailyExpense = function (req, res) {
     });
     de_instance.create(de,function(err,post){
         if (err) {
-            console.log(err);
             return err;
         }
         res.json(post);
