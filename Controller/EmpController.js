@@ -67,13 +67,13 @@ exports.FetchAllArticle = function (req, res) {
 
 //Function To Make New Sale
 exports.makesale = function (req, res) {
-    req.body.sale = (req.body.sale).substr(0, 10);
+    date  = new Date(req.body.sale);
     req.body.products = req.body.products.split(',').map(function (i) {
         return parseInt(i);
     });
     var salesmodel = new sales_instance({
         total: 0,
-        date_sale: req.body.sale,
+        date_sale: date,
         Emp_Cnic: req.body.cnic
     });
     //fetch details of all products from articles collection
@@ -107,6 +107,8 @@ exports.makesale = function (req, res) {
 exports.Showsales = function (req, res) {
     sales_instance.find({Emp_Cnic: req.body.cnic})
         .then(sal => {
+            console.log('hello')
+            console.log(sal[0].products);
             if (sal.length == 0) {
                 res.json({
                     msg: "No data available to show"
@@ -144,6 +146,7 @@ exports.AddDailyExpense = function (req, res) {
     });
     de_instance.create(de,function(err,post){
         if (err) {
+            console.log(err);
             return err;
         }
         res.json(post);
