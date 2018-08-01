@@ -67,13 +67,12 @@ exports.FetchAllArticle = function (req, res) {
 
 //Function To Make New Sale
 exports.makesale = function (req, res) {
-    date  = new Date(req.body.sale);
     req.body.products = req.body.products.split(',').map(function (i) {
         return parseInt(i);
     });
     var salesmodel = new sales_instance({
         total: 0,
-        date_sale: date,
+        date_sale: req.body.sale,
         Emp_Cnic: req.body.cnic
     });
     //fetch details of all products from articles collection
