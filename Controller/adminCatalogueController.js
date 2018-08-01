@@ -238,16 +238,14 @@ exports.Showsales = function (req, res) {
         });
 };
 exports.displaySales = function(req,res){
-    fromdate = new Date(req.body.fromdate);
-    todate = new Date(req.body.todate);
+    fromdate = new Date(req.body.date1);
+    todate = new Date(req.body.date2);
     fromyear = parseInt(fromdate.getUTCFullYear());
     frommonth = parseInt(fromdate.getUTCMonth() + 1);
     fromday = parseInt(fromdate.getUTCDate());
     toyear = parseInt(todate.getUTCFullYear());
     tomonth = parseInt(todate.getUTCMonth() + 1);
     today = parseInt(todate.getUTCDate());
-    console.log(frommonth);
-    console.log(tomonth);
     //year-month-day
     sales_instance.find()
         .then(sal=>{
@@ -260,6 +258,7 @@ exports.displaySales = function(req,res){
                 profit = 0;
                 totalsale = 0;
                 for(var i = 0; i < sal.length; i++){
+                    let count=0;
                     for(var j = 0; j < sal[i].products.length; j++){
                         date = new Date(sal[i].date_sale);
                         year = parseInt(date.getUTCFullYear());
@@ -268,15 +267,17 @@ exports.displaySales = function(req,res){
                         if(fromyear <= year && toyear >= year){
                             if(frommonth <= month && tomonth >=month){
                                 if(fromday <=day && today >=day){
-                                    console.log('hello');
                                     profit+= (sal[i].products[j].retail_price - sal[i].products[j].factory_price);
+                                    if(count===0){
                                     totalsale+= (sal[i].total);
+                                    count++;
+                                }
                                 }
                             }
                         }
                     }
                 }
-                res.json({profit:profit,totalsale:totalsale});
+                 res.json({profit:profit,totalsale:totalsale});
             }
         }).catch(err =>{
             return res.status(500).send({

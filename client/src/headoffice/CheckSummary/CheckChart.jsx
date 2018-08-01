@@ -105,7 +105,7 @@ class DatePickers extends React.Component {
           }
           formBody = formBody.join("&");
           
-          fetch('/admin/fetchsales', {
+          fetch('/admin/showstats', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
@@ -116,7 +116,7 @@ class DatePickers extends React.Component {
           .then(res=>{
             console.log(res)
             console.log("we are in this function");
-            console.log(this.state.t);
+          //  console.log(this.state.t);
             console.log(res);
             if(res){
                 Object.values(res).map((type,index)=> {
