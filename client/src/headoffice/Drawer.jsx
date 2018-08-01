@@ -31,6 +31,7 @@ import ViewAllItems from './AddItem/ViewAllItems';
 import Charts from './Stats/Chart';
 import CheckChart from './CheckSummary/CheckChart'
 
+
 const customHistory = createBrowserHistory();
 const drawerWidth = 240;
 
@@ -165,6 +166,7 @@ CheckSummaryChart = () => {
   })
   console.log("View All item Click")
 }
+
 
 
   handleClickDialogOpen = () => {

@@ -19,4 +19,3 @@ router.post('/fetchitembyid',Controller.fetchoneByid);
 router.post('/fetchsales',Controller.Showsales);
 router.post('/showstats',Controller.displaySales);
 module.exports = router;
-

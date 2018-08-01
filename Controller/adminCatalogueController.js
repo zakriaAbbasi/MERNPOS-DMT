@@ -238,8 +238,16 @@ exports.Showsales = function (req, res) {
         });
 };
 exports.displaySales = function(req,res){
-    fromdate = parseInt(((req.body.fromdate).substr(0, 10)).split("-"));
-    todate = parseInt(((req.body.todate).substr(0, 10)).split("-"));
+    fromdate = new Date(req.body.fromdate);
+    todate = new Date(req.body.todate);
+    fromyear = parseInt(fromdate.getUTCFullYear());
+    frommonth = parseInt(fromdate.getUTCMonth() + 1);
+    fromday = parseInt(fromdate.getUTCDate());
+    toyear = parseInt(todate.getUTCFullYear());
+    tomonth = parseInt(todate.getUTCMonth() + 1);
+    today = parseInt(todate.getUTCDate());
+    console.log(frommonth);
+    console.log(tomonth);
     //year-month-day
     sales_instance.find()
         .then(sal=>{
@@ -249,16 +257,26 @@ exports.displaySales = function(req,res){
             });
             }
             else{
-                newobject = 0;
+                profit = 0;
+                totalsale = 0;
                 for(var i = 0; i < sal.length; i++){
-                    date = parseInt((sal[i]).split("-"));
-                    if(fromdate[0] >= date[0] && todate[0] <= date[0])
-                        if(fromdate[1] >= date[1] && todate[1] <=date[1])
-                            if(fromdate[2] >=date[2] && todate[2] <=date[2])
-                                newobject+= (sal[i].products.retail_price - sal[i].products.factory_price);
-                                //retail - factory
+                    for(var j = 0; j < sal[i].products.length; j++){
+                        date = new Date(sal[i].date_sale);
+                        year = parseInt(date.getUTCFullYear());
+                        month = parseInt(date.getUTCMonth() + 1);
+                        day = parseInt(date.getUTCDate());
+                        if(fromyear <= year && toyear >= year){
+                            if(frommonth <= month && tomonth >=month){
+                                if(fromday <=day && today >=day){
+                                    console.log('hello');
+                                    profit+= (sal[i].products[j].retail_price - sal[i].products[j].factory_price);
+                                    totalsale+= (sal[i].total);
+                                }
+                            }
+                        }
+                    }
                 }
-                res.json(newobject);
+                res.json({profit:profit,totalsale:totalsale});
             }
         }).catch(err =>{
             return res.status(500).send({
