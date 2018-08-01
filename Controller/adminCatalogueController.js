@@ -237,7 +237,6 @@ exports.Showsales = function (req, res) {
             });
         });
 };
-
 exports.displaySales = function(req,res){
     fromdate = parseInt(((req.body.fromdate).substr(0, 10)).split("-"));
     todate = parseInt(((req.body.todate).substr(0, 10)).split("-"));
