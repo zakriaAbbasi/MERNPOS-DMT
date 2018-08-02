@@ -92,10 +92,11 @@ class DatePickers extends React.Component {
     })
   }
     checkData = () => {
+      console.log(this.state.date1)
         var details = {
             'token':this.state.t,
-            'date1':this.state.date1,
-             'date2':this.state.date2
+            'fromdate':this.state.date1,
+             'todate':this.state.date2
         };
           var formBody = [];
           for (var property in details) {
@@ -105,7 +106,7 @@ class DatePickers extends React.Component {
           }
           formBody = formBody.join("&");
           
-          fetch('/admin/fetchsales', {
+          fetch('/admin/showstats', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
