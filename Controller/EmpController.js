@@ -67,10 +67,9 @@ exports.FetchAllArticle = function (req, res) {
 
 //Function To Make New Sale
 exports.makesale = function (req, res) {
-    req.body.sale = (req.body.sale).substr(0, 10);
     req.body.products = req.body.products.split(',').map(function (i) {
         return parseInt(i);
-    })
+    });
     var salesmodel = new sales_instance({
         total: 0,
         date_sale: req.body.sale,
@@ -85,25 +84,22 @@ exports.makesale = function (req, res) {
             },
             function (err, article) {
 
-                console.log(article)
-
                 if (err) {
                     return res.json(`${err}`);
                 }
                 ///check if article isnt null///
                 else if (article != null) {
+                    //console.log("length = ", req.body.products.length, "i = ", i);
                     salesmodel.products.push(article);
                     salesmodel.total = salesmodel.total + article.retail_price;
                 }
-                //////wrong if condition, this works////
-                if (i == req.body.products.length) {
-                    console.log(salesmodel.products.length);
+                if (salesmodel.products.length === req.body.products.length) {
                     salesmodel.save(function () {});
+                    res.json('Done');
                 }
             });
+    
     }
-
-    res.json('Done');
 }
 
 //function to fetch sales
@@ -154,4 +150,4 @@ exports.AddDailyExpense = function (req, res) {
         }
         res.json(post);
     });
-};
+}

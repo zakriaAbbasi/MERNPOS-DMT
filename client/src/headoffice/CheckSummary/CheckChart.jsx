@@ -117,7 +117,7 @@ class DatePickers extends React.Component {
           .then(res=>{
             console.log(res)
             console.log("we are in this function");
-            console.log(this.state.t);
+          //  console.log(this.state.t);
             console.log(res);
             if(res){
                 Object.values(res).map((type,index)=> {

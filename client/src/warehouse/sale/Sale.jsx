@@ -105,8 +105,8 @@ class Sale extends React.Component {
     this.state.cartItems.map((item)=>{
       itemIdArray.push(item.item_id);
     });
-    
-
+    var date = new Date();
+    date.setHours(date.getHours()+5);
     var details = {
       'token':this.state.t,
       'sale':new Date(),
