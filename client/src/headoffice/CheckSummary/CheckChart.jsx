@@ -121,8 +121,8 @@ class DatePickers extends React.Component {
             console.log(res);
             if(res){
                 Object.values(res).map((type,index)=> {
-                  myDataSource.data[index].label=type.date_sale;
-                  myDataSource.data[index].value=type.total
+                  myDataSource.data[index].label=type.profit;
+                  myDataSource.data[index].value=type.totalsale
                 })
       
             };
