@@ -67,7 +67,6 @@ exports.FetchAllArticle = function (req, res) {
 
 //Function To Make New Sale
 exports.makesale = function (req, res) {
-    req.body.sale = (req.body.sale).substr(0, 10);
     req.body.products = req.body.products.split(',').map(function (i) {
         return parseInt(i);
     });
@@ -107,6 +106,8 @@ exports.makesale = function (req, res) {
 exports.Showsales = function (req, res) {
     sales_instance.find({Emp_Cnic: req.body.cnic})
         .then(sal => {
+            console.log('hello')
+            console.log(sal[0].products);
             if (sal.length == 0) {
                 res.json({
                     msg: "No data available to show"
@@ -144,8 +145,9 @@ exports.AddDailyExpense = function (req, res) {
     });
     de_instance.create(de,function(err,post){
         if (err) {
+            console.log(err);
             return err;
         }
         res.json(post);
     });
-};
+}
