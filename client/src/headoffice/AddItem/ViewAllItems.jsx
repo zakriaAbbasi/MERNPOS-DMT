@@ -6,6 +6,7 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from 'material-ui/Button';
+import TextField from 'material-ui/TextField';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -89,6 +90,8 @@ deleteClick = (index) => {
 };
 
 
+
+
 var formBody = [];
 for (var property in details) {
   var encodedKey = encodeURIComponent(property);
@@ -147,12 +150,78 @@ fetch('/admin/viewallitems', {
 ); 
 
 }
+
+
+  //FIND OPTION
+
+  changeItemName = (e) => {
+    this.setState({
+      itemName:e.target.value,
+    })
+  }
+  findItem = () => {
+    let temp = []
+    Object.values(this.state.data).map((type,index)=>{
+      if (type.item_name.toLocaleLowerCase().indexOf(this.state.itemName.toLocaleLowerCase())>=0){
+       temp.push(type);
+      }
+    })
+    this.setState({
+      data:temp
+    })
+  }
+  cancelSearch = () => {
+    var details = {
+      'token':this.state.t
+  };
+  
+ 
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  formBody = formBody.join("&");
+  
+  
+  fetch('/emp/FetchItems', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' 
+    },
+    body: formBody
+  })
+  .then(res=>res.json())
+  .then(res=>{
+ 
+    if(res){
+     this.setState({
+       data:res
+     })
+    };
+  }
+  );   
+  }
+
   render() {
     const { classes } = this.props;
     return (
       <div>
       <Typography variant="display2"> All Items</Typography>
+      
       <Paper className={classes.root}>
+      <TextField
+                    id="itemname"
+                    label="Find Item"
+                    value={this.state.itemName}
+                    placeholder="Find Item"
+                    onChange={e => this.changeItemName(e)}
+                    className={classes.textField}
+                    margin="normal"
+                />
+                <Button  color="primary" onClick={this.findItem}  className={classes.button}>Find</Button>
+                <Button  color="primary" onClick={this.cancelSearch}  className={classes.button}>All Items</Button>
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
