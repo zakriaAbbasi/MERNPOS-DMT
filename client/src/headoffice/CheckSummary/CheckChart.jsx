@@ -29,32 +29,8 @@ var myDataSource = {
   },
   data: [
     {
-      label: '',
-      value: '',
-    },
-    {
-      label: '',
-      value: '',
-    },
-    {
-      label: '',
-      value: '',
-    },
-    {
-      label: '',
-      value: '',
-    },
-    {
-      label: '',
-      value: '',
-    },
-    {
-      label: '',
-      value: '',
-    },
-    {
-      label: '',
-      value: '',
+      label: '35',
+      value: '5000',
     },
   ],
 };
@@ -115,16 +91,16 @@ class DatePickers extends React.Component {
           })
           .then(res=>res.json())
           .then(res=>{
-            console.log(res)
-            console.log("we are in this function");
-          //  console.log(this.state.t);
-            console.log(res);
             if(res){
                 Object.values(res).map((type,index)=> {
-                  myDataSource.data[index].label=type.profit;
-                  myDataSource.data[index].value=type.totalsale
+                    console.log(type.totalsale)
+                    console.log(type.profit)
+                    myDataSource.data.label=type.totalsale;
+                    myDataSource.data.value=type.profit
                 })
-      
+                this.setState({
+
+                })
             };
           }
           );
@@ -140,7 +116,7 @@ class DatePickers extends React.Component {
                     id="date1"
                     label="From "
                     type="date"
-                    defaultValue="2018-07-24"
+                    defaultValue={new Date()}
                     onChange={e => this.setDate1(e)}
                     className={classes.textField}
                     InputLabelProps={{
@@ -153,7 +129,7 @@ class DatePickers extends React.Component {
                     id="date1"
                     label="To"
                     type="date"
-                    defaultValue="2018-07-25"
+                    defaultValue={new Date()}
                     onChange={e => this.setDate2(e)}
                     className={classes.textField}
                     InputLabelProps={{
