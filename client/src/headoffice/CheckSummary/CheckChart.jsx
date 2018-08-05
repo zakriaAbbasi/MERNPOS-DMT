@@ -72,8 +72,8 @@ class DatePickers extends React.Component {
         var details = {
             'token':this.state.t,
             'fromdate':this.state.date1,
-             'todate':this.state.date2
-        };
+            'todate':this.state.date2
+          };
           var formBody = [];
           for (var property in details) {
             var encodedKey = encodeURIComponent(property);
