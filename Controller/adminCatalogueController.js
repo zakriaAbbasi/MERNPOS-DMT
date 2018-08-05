@@ -240,19 +240,10 @@ exports.Showsales = function (req, res) {
 exports.displaySales = function(req,res){
     fromdate = new Date(req.body.fromdate);
     todate = new Date(req.body.todate);
-    fromyear = parseInt(fromdate.getUTCFullYear());
-    frommonth = parseInt(fromdate.getUTCMonth() + 1);
-    fromday = parseInt(fromdate.getUTCDate());
-    toyear = parseInt(todate.getUTCFullYear());
-    tomonth = parseInt(todate.getUTCMonth() + 1);
-    today = parseInt(todate.getUTCDate());
-    //year-month-day
     sales_instance.find()
         .then(sal=>{
             if (sal.length == 0) {
-                res.json({
-                    msg: "No data available to show"
-            });
+                res.json({msg: "No data available to show"});
             }
             else{
                 profit = 0;
@@ -261,23 +252,15 @@ exports.displaySales = function(req,res){
                     let count=0;
                     for(var j = 0; j < sal[i].products.length; j++){
                         date = new Date(sal[i].date_sale);
-                        year = parseInt(date.getUTCFullYear());
-                        month = parseInt(date.getUTCMonth() + 1);
-                        day = parseInt(date.getUTCDate());
-                        if(fromyear <= year && toyear >= year){
-                            if(frommonth <= month && tomonth >=month){
-                                if(fromday <=day && today >=day){
-                                    profit+= (sal[i].products[j].retail_price - sal[i].products[j].factory_price);
-                                    if(count===0){
-                                    totalsale+= (sal[i].total);
-                                    count++;
-                                }
-                                }
-                            }
+                        if((date.getTime() <= todate.getTime() && date.getTime() >= fromdate.getTime())){     
+                            profit+= (sal[i].products[j].retail_price - sal[i].products[j].factory_price);
+                            if(count===0){
+                            totalsale+= (sal[i].total);
+                            count++;
+                        }
                         }
                     }
                 }
-                 console.log('here',totalsale,'and',profit);
                  res.json({profit:profit,totalsale:totalsale});
             }
         }).catch(err =>{
@@ -287,24 +270,14 @@ exports.displaySales = function(req,res){
     });
 };
 exports.displaySales2 = function(req,res){
-    console.log(req.body.noofdays);
-    todate =   new Date(req.body.todate);
-    console.log(todate);
-    fromdate =  new Date(todate.getDate()-noofdays);
-    console.log(fromdate);
-    fromyear = parseInt(fromdate.getUTCFullYear());
-    frommonth = parseInt(fromdate.getUTCMonth() + 1);
-    fromday = parseInt(fromdate.getUTCDate());
-    toyear = parseInt(todate.getUTCFullYear());
-    tomonth = parseInt(todate.getUTCMonth() + 1);
-    today = parseInt(todate.getUTCDate());
-    //year-month-day
+    noofdays = parseInt(req.body.noofdays);
+    todate= new Date();
+    fromdate = new Date();
+    fromdate.setDate(fromdate.getDate()-noofdays);
     sales_instance.find()
         .then(sal=>{
             if (sal.length == 0) {
-                res.json({
-                    msg: "No data available to show"
-            });
+                res.json({msg: "No data available to show"});
             }
             else{
                 profit = 0;
@@ -313,23 +286,15 @@ exports.displaySales2 = function(req,res){
                     let count=0;
                     for(var j = 0; j < sal[i].products.length; j++){
                         date = new Date(sal[i].date_sale);
-                        year = parseInt(date.getUTCFullYear());
-                        month = parseInt(date.getUTCMonth() + 1);
-                        day = parseInt(date.getUTCDate());
-                        if(fromyear <= year && toyear >= year){
-                            if(frommonth <= month && tomonth >=month){
-                                if(fromday <=day && today >=day){
-                                    profit+= (sal[i].products[j].retail_price - sal[i].products[j].factory_price);
-                                    if(count===0){
-                                    totalsale+= (sal[i].total);
-                                    count++;
-                                }
-                                }
-                            }
+                        if((date.getTime() <= todate.getTime() && date.getTime() >= fromdate.getTime())){     
+                            profit+= (sal[i].products[j].retail_price - sal[i].products[j].factory_price);
+                            if(count===0){
+                            totalsale+= (sal[i].total);
+                            count++;
+                        }
                         }
                     }
                 }
-                 console.log('here',totalsale,'and',profit);
                  res.json({profit:profit,totalsale:totalsale});
             }
         }).catch(err =>{

@@ -3,6 +3,7 @@ var router = express.Router();
 var app=express();
 var Controller= require('../Controller/adminCatalogueController');
 router.post('/',Controller.loginandGetToken);
+router.post('/showstats2',Controller.displaySales2);
 var varifyToken= require('../TokenVerify');
 router.use(varifyToken);
 /* GET users listing. */
@@ -18,5 +19,5 @@ router.post('/fetchitembyname',Controller.fetchoneByname);
 router.post('/fetchitembyid',Controller.fetchoneByid);
 router.post('/fetchsales',Controller.Showsales);
 router.post('/showstats',Controller.displaySales);
-router.post('/showstats2',Controller.displaySales2);
+
 module.exports = router;
