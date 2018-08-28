@@ -150,7 +150,10 @@ fetch('/admin/viewallitems', {
 ); 
 
 }
-
+updatequantity = (index,oper) => {
+  console.log('index is',index);
+  console.log('oper is ',oper);
+}
 
   //FIND OPTION
 
@@ -229,6 +232,7 @@ fetch('/admin/viewallitems', {
               <CustomTableCell numeric>Item Id</CustomTableCell>
               <CustomTableCell numeric>Factory Price</CustomTableCell>
               <CustomTableCell numeric>Retail Price</CustomTableCell>
+              <CustomTableCell numeric>Quantity</CustomTableCell>
               <CustomTableCell numeric>Delete</CustomTableCell>
             </TableRow>
           </TableHead>
@@ -243,6 +247,11 @@ fetch('/admin/viewallitems', {
                     <CustomTableCell numeric> {type.item_id} </CustomTableCell>
                     <CustomTableCell numeric>{type.factory_price}</CustomTableCell>
                     <CustomTableCell numeric>{type.retail_price}</CustomTableCell>
+                    <CustomTableCell numeric>
+                    <Button  size='small' onClick={()=>{this.updatequantity(index,'+')}} >+</Button>
+                    {type.quantity}
+                    <Button  size='small' onClick={()=>{this.updatequantity(index,'-')}} >-</Button>
+                    </CustomTableCell>
                     <CustomTableCell numeric>
                     <Button  aria-label="delete" onClick={()=>{this.deleteClick(index)}} className={classes.button}>
                     <DeleteIcon />

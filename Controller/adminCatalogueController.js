@@ -128,20 +128,23 @@ exports.Deleteemp= function(req, res)
 //Function to Create new Article
 exports.CreatenewArticle= function(req, res)
  {
+     console.log('we are here',req.body);
      var articlemodel = new article_instance({ item_name:req.body.name,description:req.body.desc,
         retail_price:parseInt(req.body.Rprice), 
-        factory_price:parseInt(req.body.Fprice),});
+        factory_price:parseInt(req.body.Fprice),
+        quantity:parseInt(req.body.quantity),
+        threshold:parseInt(req.body.thold),});
         //fetch last document and increment article id
         article_instance.find().sort({"_id": -1}).limit(1).exec(function(err,latest){
         if(latest[0]!=null){ articlemodel.item_id=latest[0].item_id + 1;}
-        else{articlemodel.id2=req.body.newid+'001'}
-        
+        console.log(articlemodel);
         //save new article
         articlemodel.save(function (err) {
         if (err)
         return res.json(err);
         else
-          return res.json({id:articlemodel.id2,message:'Article Added Succesfully'});
+          console.log('saved');
+          return res.json({message:'Article Added Succesfully'});
         // saved!
     });
 });
@@ -260,7 +263,7 @@ exports.displaySales = function(req,res){
                         }
                         }
                     }
-                }
+                } 
                  res.json({profit:profit,totalsale:totalsale});
             }
         }).catch(err =>{

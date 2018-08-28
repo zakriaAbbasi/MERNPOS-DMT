@@ -61,6 +61,7 @@ class TextFields extends React.Component {
     description:'',
     rPrice:'',
     fPrice:'',
+    Qunatity: 1,
     t:this.props.token,
   }
 
@@ -115,7 +116,11 @@ canBeSubmitted() {
       fPrice: e.target.value
     });
   }
- 
+  changeQuantity = e => {
+    this.setState({
+      Qunatity: e.target.value
+    });
+  }
 
   handleClick = () => {
     console.log(this.props.token);
@@ -126,6 +131,7 @@ canBeSubmitted() {
         'desc': this.state.description,
         'Rprice':this.state.rPrice,
         'Fprice':this.state.fPrice,
+        'quantity':this.state.Qunatity,
         'token':this.state.t,
    };
    
@@ -164,6 +170,7 @@ canBeSubmitted() {
         description:'',
         rPrice:'',
         fPrice:'',
+        Qunatity: 1,
     })
   }
 
@@ -222,6 +229,17 @@ canBeSubmitted() {
           value={this.state.fPrice}
           placeholder="Enter Factory Price"
           onChange={e => this.changeFPrice(e)}
+          className={classes.textField}
+          margin="normal"
+        />
+        </CardContent>
+        <CardContent>
+        <TextField
+          id="quantity"
+          label="Quantity"
+          value={this.state.Qunatity}
+          placeholder="Enter Quantity"
+          onChange={e => this.changeQuantity(e)}
           className={classes.textField}
           margin="normal"
         />

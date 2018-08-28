@@ -1,4 +1,5 @@
 var express = require('express');
+const nodemailer = require('nodemailer');
 var app = express();
 var jwt = require('jsonwebtoken');
 var config = require('../DBconfig');
@@ -67,6 +68,7 @@ exports.FetchAllArticle = function (req, res) {
 
 //Function To Make New Sale
 exports.makesale = function (req, res) {
+    console.log('we are here');
     req.body.products = req.body.products.split(',').map(function (i) {
         return parseInt(i);
     });
@@ -77,7 +79,8 @@ exports.makesale = function (req, res) {
     });
     //fetch details of all products from articles collection
     for (var i = 0; i < req.body.products.length; i++) {
-        article_instance.findOne(
+        let count=0;
+        article_instance.findOneAndUpdate(
             // query
             {
                 item_id: req.body.products[i]
@@ -88,8 +91,27 @@ exports.makesale = function (req, res) {
                     return res.json(`${err}`);
                 }
                 ///check if article isnt null///
-                else if (article != null) {
-                    //console.log("length = ", req.body.products.length, "i = ", i);
+                else if (article != null && article.quantity != 0) {
+                    article.quantity--;
+                    if(article.quantity<article.threshold)
+                    {   if(count===0){
+                        let mailOptions = {
+                            from: '"DMT 👻" <foo@example.com>', // sender address
+                            to: 'zakiabbasi15@yahoo.com', // list of receivers
+                            subject: 'Threshold Waarning!', // Subject line
+                            text: 'Your article '+article.name+' has Reached Threshold Limit', // plain text body
+                        };
+                    
+                        // send mail with defined transport object
+                        transporter.sendMail(mailOptions, (error, info) => {
+                            if (error) {
+                                return console.log(error);
+                            }
+                            console.log('Message sent: %s', info.messageId);
+                        });
+                        count++;
+                    }
+                    }
                     salesmodel.products.push(article);
                     salesmodel.total = salesmodel.total + article.retail_price;
                 }
