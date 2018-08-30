@@ -10,12 +10,31 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
-
+function registerServiceWorker() {
+  return navigator.serviceWorker.register('/sw.js')
+  .then(function(registration) {
+    console.log('Service worker successfully registered.');
+    console.log(registration);
+    return registration;
+  })
+  .catch(function(err) {
+    console.error('Unable to register service worker.', err);
+  });
+}
 class App extends Component {
 
 
     constructor(props){
       super(props);
+      if (!('serviceWorker' in navigator)) {
+        console.log('Service Worker isnt supported on this browser, disable or hide UI');
+        return;
+      }
+      
+      if (!('PushManager' in window)) {
+        console.log('Push isnt supported on this browser, disable or hide UI');
+        return;
+      }
       this.state={
        open:false,
         onDisplay:<Login updateHeadOffice={this.updateHeadOfficeDisplay} updateWarehouse={this.updateWareHouseDisplay} updateShop={this.updateShopDisplay} handleOpen={this.handleClickOpen}/>
@@ -61,6 +80,7 @@ class App extends Component {
   }
 
   render() {
+    registerServiceWorker();
     return (
       <div className="App">
         {this.state.onDisplay}

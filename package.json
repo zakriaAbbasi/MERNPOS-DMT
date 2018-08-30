@@ -17,6 +17,7 @@
     "mongoose-bcrypt": "^1.5.0",
     "morgan": "~1.9.0",
     "nodemailer": "^4.6.8",
-    "nodemon": "^1.17.3"
+    "nodemon": "^1.17.3",
+    "web-push": "^3.3.2"
   }
 }

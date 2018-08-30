@@ -242,7 +242,7 @@ updatequantity = (index,oper) => {
                Object.values(this.state.data).map((type,index) => {
                 
                  return (
-                  <TableRow className={classes.row} key={type.Emp_cnic}>
+                    <TableRow className={classes.row} key={type.Emp_cnic}>
                     <CustomTableCell>{type.item_name}</CustomTableCell>
                     <CustomTableCell numeric> {type.item_id} </CustomTableCell>
                     <CustomTableCell numeric>{type.factory_price}</CustomTableCell>

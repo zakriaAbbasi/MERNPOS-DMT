@@ -1,8 +1,8 @@
 var express = require('express');
-const nodemailer = require('nodemailer');
 var app = express();
 var jwt = require('jsonwebtoken');
 var config = require('../DBconfig');
+var services = require('./ServicesController');
 ///Connect to DataBasae
 var mongoose = require('mongoose');
 mongoose.connect(config.database);
@@ -68,7 +68,6 @@ exports.FetchAllArticle = function (req, res) {
 
 //Function To Make New Sale
 exports.makesale = function (req, res) {
-    console.log('we are here');
     req.body.products = req.body.products.split(',').map(function (i) {
         return parseInt(i);
     });
@@ -77,47 +76,33 @@ exports.makesale = function (req, res) {
         date_sale: req.body.sale,
         Emp_Cnic: req.body.cnic
     });
+    let thproducts = [];
     //fetch details of all products from articles collection
     for (var i = 0; i < req.body.products.length; i++) {
-        let count=0;
         article_instance.findOneAndUpdate(
             // query
-            {
-                item_id: req.body.products[i]
-            },
-            function (err, article) {
+            {item_id: req.body.products[i]},
+            {$inc:{quantity:-1}},
+             function (err, article) {
 
                 if (err) {
-                    return res.json(`${err}`);
+                    return res.json(err);
                 }
                 ///check if article isnt null///
-                else if (article != null && article.quantity != 0) {
-                    article.quantity--;
+                 else if (article != null && article.quantity != 0) {
                     if(article.quantity<article.threshold)
-                    {   if(count===0){
-                        let mailOptions = {
-                            from: '"DMT 👻" <foo@example.com>', // sender address
-                            to: 'zakiabbasi15@yahoo.com', // list of receivers
-                            subject: 'Threshold Waarning!', // Subject line
-                            text: 'Your article '+article.name+' has Reached Threshold Limit', // plain text body
-                        };
-                    
-                        // send mail with defined transport object
-                        transporter.sendMail(mailOptions, (error, info) => {
-                            if (error) {
-                                return console.log(error);
-                            }
-                            console.log('Message sent: %s', info.messageId);
-                        });
-                        count++;
-                    }
-                    }
+                     thproducts.push(article.item_id);
                     salesmodel.products.push(article);
                     salesmodel.total = salesmodel.total + article.retail_price;
                 }
                 if (salesmodel.products.length === req.body.products.length) {
-                    salesmodel.save(function () {});
-                    res.json('Done');
+                    salesmodel.save();
+                    if(thproducts.length > 0){
+                        thproducts = Array.from(new Set(thproducts));
+                        services.SendEmail(thproducts.toString());
+                        services.SendPush(thproducts.toString());
+                    }
+                    res.json('Done'); 
                 }
             });
     
@@ -128,8 +113,6 @@ exports.makesale = function (req, res) {
 exports.Showsales = function (req, res) {
     sales_instance.find({Emp_Cnic: req.body.cnic})
         .then(sal => {
-            console.log('hello')
-            console.log(sal[0].products);
             if (sal.length == 0) {
                 res.json({
                     msg: "No data available to show"

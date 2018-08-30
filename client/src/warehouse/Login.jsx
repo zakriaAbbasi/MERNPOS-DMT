@@ -7,7 +7,7 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Card, { CardContent } from 'material-ui/Card';
-
+import urlBase64ToUint8Array from 'url-base64-to-uint8array';
 const styles = theme => ({
   button: {
     display:'flex',
@@ -60,7 +60,71 @@ function validate(userName,Password) {
     Password: Password.length === 0,
   };
 }
+//Function To Ask User's Permission to send them push notifications.
+function askPermission() {
+  return new Promise(function(resolve, reject) {
+    const permissionResult = Notification.requestPermission(function(result) {
+    resolve(result);
+    });
+    if (permissionResult) {
+      permissionResult.then(resolve, reject);
+    }
+  })
+  .then(function(permissionResult) {
+    if (permissionResult !== 'granted') {
+      throw new Error('We weren\'t granted permission.');
+    }
+  });
+}
+//Function To send Subscription to Back-end
+function sendSubscriptionToBackEnd(subscription) {
+  //console.log(JSON.stringify(subscription));
+  return fetch('/subs', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(subscription)
+  })
+  .then(function(response) {
+    if (!response.ok) {
+      throw new Error('Bad status code from server.');
+    }
 
+    return response.json();
+  })
+  .then(function(responseData) {
+    if (!(responseData.data && responseData.data.success)) {
+      throw new Error('Bad response from server.');
+    }
+  });
+}
+//Function to subscribe user to push notifications
+function subscribeUserToPush() { 
+  navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+    // Do we already have a push message subscription?
+    serviceWorkerRegistration.pushManager.getSubscription()
+      .then(function(subscription) {
+        if (!subscription) {
+          const subscribeOptions = {
+            expirationTime: 999999,
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(
+              'BK7j6oEXJUWtmBaMFBSuxST1b5aLCXIZ77wOQtt1BleyrcpwU9zkvysq1TOnFHDqjvyLNE-9m1u37ttKfzKYk8Q')
+          };
+          return serviceWorkerRegistration.pushManager.subscribe(subscribeOptions).then(function(pushSubscription) {
+            console.log('Received Push Subscription:', JSON.stringify(pushSubscription));
+            sendSubscriptionToBackEnd(pushSubscription);
+            return pushSubscription;
+          });
+  }
+  else{
+    console.log('User is already subscribed');
+  }
+          return;
+        }); 
+      });
+}
 class TextFields extends React.Component {
   constructor(props){
     super(props)
@@ -131,6 +195,9 @@ class TextFields extends React.Component {
      else{
        this.props.handleOpen();
      }
+     //Ask Permission for sending notifications and subscribe user..
+     askPermission();
+     subscribeUserToPush();
    };
  }
  );
@@ -141,7 +208,6 @@ class TextFields extends React.Component {
       Password:'',
       type:'emp'
     })
-
   }
   changeUsername = e => {
     this.setState({
